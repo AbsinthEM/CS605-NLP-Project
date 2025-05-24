@@ -164,11 +164,12 @@ cython_debug/
 .pypirc
 
 # data
-*.csv
+# *.csv
+# *.parquet/
 
 # mac
 .DS_Store
-*.parquet/
+
 
 # trash
 *.Trash*
