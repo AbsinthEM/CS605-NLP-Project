@@ -1,0 +1,93 @@
+{
+  "dataset_info": {
+    "total_reviews": 29412,
+    "dataset_shape": [
+      29412,
+      19
+    ],
+    "structured_coverage": 0.25458996328029376,
+    "avg_rating": 4.39,
+    "rating_distribution": {
+      "Positive": 25073,
+      "Negative": 2206,
+      "Neutral": 2133
+    },
+    "stars_distribution": {
+      "1": 1370,
+      "2": 836,
+      "3": 2133,
+      "4": 5558,
+      "5": 19515
+    }
+  },
+  "temporal_patterns": {
+    "visit_time_impact": {
+      "Public holiday": 4.46,
+      "Weekday": 4.14,
+      "Weekend": 4.38
+    },
+    "wait_time_impact": {
+      "1 hr": 3.15,
+      "1030 min": 4.32,
+      "3060 min": 3.97,
+      "No wait": 4.48,
+      "Up to 10 min": 4.44
+    },
+    "visit_time_coverage": "7282",
+    "wait_time_coverage": "6982"
+  },
+  "facility_analysis": {
+    "category_mentions": {
+      "Rides & Attractions": "11534",
+      "Service & Staff": "1350",
+      "Wait & Queue Management": "8873",
+      "Pricing & Value": "6300",
+      "Facilities & Amenities": "1407",
+      "Experience Quality": "8590",
+      "Visitor Demographics": "4782"
+    },
+    "specific_facilities": {
+      "transformers": "1936",
+      "mummy": "1712",
+      "battlestar": "445",
+      "galactica": "518",
+      "jurassic": "959",
+      "minion": "452",
+      "canopy flyer": "65",
+      "puss in boots": "72"
+    }
+  },
+  "visitor_analysis": {
+    "visitor_types": {
+      "Family Visitors": "5550",
+      "Young Adults/Thrill Seekers": "2125",
+      "Couples/Romance": "493",
+      "Tourist/International": "7811",
+      "Repeat Visitors": "1826",
+      "Budget Conscious": "3946"
+    }
+  },
+  "price_analysis": {
+    "Expensive/Costly": {
+      "avg_rating": 3.7889417360285376,
+      "count": "1682"
+    },
+    "Worth/Value": {
+      "avg_rating": 4.121860465116279,
+      "count": "2150"
+    },
+    "Cheap/Affordable": {
+      "avg_rating": 4.233933161953727,
+      "count": "389"
+    },
+    "Money General": {
+      "avg_rating": 3.5649263721552877,
+      "count": "2988"
+    }
+  },
+  "file_info": {
+    "source_file": "data/processed/USS_Reviews_Silver.csv",
+    "output_file": "data/processed/USS_EDA_Summary.json",
+    "analysis_timestamp": "2025-05-24T12:11:13.897748"
+  }
+}
