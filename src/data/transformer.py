@@ -94,47 +94,6 @@ def extract_standardized_dates(df, date_col='publishedAtDate'):
     
     return df_result
 
-def create_data_splits(df, split_column='data_split', test_size=0.2, val_size=0.1, random_state=42):
-    """
-    Create train/validation/test splits
-    
-    Args:
-        df (pd.DataFrame): Input DataFrame
-        split_column (str, optional): Name of column to store split information
-        test_size (float, optional): Proportion for test set
-        val_size (float, optional): Proportion for validation set
-        random_state (int, optional): Random seed
-    
-    Returns:
-        pd.DataFrame: DataFrame with added split column
-    """
-    df_silver = df.copy()
-    
-    # First split off the test set
-    train_val, test = train_test_split(
-        df_silver, test_size=test_size, random_state=random_state
-    )
-    
-    # Then split the remaining data into train and validation
-    # Calculate the validation size as a proportion of the train_val set
-    effective_val_size = val_size / (1 - test_size)
-    train, val = train_test_split(
-        train_val, test_size=effective_val_size, random_state=random_state
-    )
-    
-    # Add split information to the original DataFrame
-    df_silver[split_column] = None
-    df_silver.loc[train.index, split_column] = 'train'
-    df_silver.loc[val.index, split_column] = 'val'
-    df_silver.loc[test.index, split_column] = 'test'
-    
-    # Log split counts
-    print(f"Data split: train={len(train)} ({len(train)/len(df_silver):.2%}), "
-          f"val={len(val)} ({len(val)/len(df_silver):.2%}), "
-          f"test={len(test)} ({len(test)/len(df_silver):.2%})")
-    
-    return df_silver
-
 def transform_to_silver(df_bronze, output_path=None):
     """
     Transform Bronze layer data to Silver layer
@@ -164,7 +123,6 @@ def transform_to_silver(df_bronze, output_path=None):
     df_silver = extract_standardized_dates(df_clean)
     df_silver = select_columns_for_silver(df_silver)
     df_silver = anonymize_user_data(df_silver)
-    df_silver = create_data_splits(df_silver)
     
     # Add a unique index
     df_silver.reset_index(drop=True, inplace=True)
