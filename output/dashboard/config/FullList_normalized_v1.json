@@ -1,0 +1,154 @@
+{
+  "minion land": {
+    "rides": [
+      "buggie boogie",
+      "despicable me minion mayhem",
+      "silly swirly"
+    ],
+    "shows": [
+      "minute of minion mayhem",
+      "despicable me family portrait",
+      "gru lucy",
+      "minion dance party"
+    ],
+    "dinning": [
+      "ice cream stand",
+      "pop a nana",
+      "super hungry food stand"
+    ],
+    "game_booths": [
+      "ba na na cabana",
+      "space killer"
+    ],
+    "retail": [
+      "sweet surrender",
+      "pop store",
+      "fun store"
+    ]
+  },
+  "hollywood": {
+    "rides": [],
+    "shows": [
+      "mel s mixtape",
+      "pantages hollywood theater trolls hug time jubilee",
+      "lake hollywood spectacular",
+      "po and master tigress"
+    ],
+    "dinning": [
+      "mel s drive in",
+      "pops popcorn delight",
+      "starbucks"
+    ],
+    "game_booths": [],
+    "retail": [
+      "candylicious",
+      "hello kitty studio store",
+      "minion mart",
+      "the dark room",
+      "universal studios store"
+    ]
+  },
+  "new york": {
+    "rides": [
+      "sesame street spaghetti space chase"
+    ],
+    "shows": [
+      "lights camera action",
+      "rhythm truck",
+      "sesame street"
+    ],
+    "dinning": [
+      "kt s grill",
+      "loui s ny pizza parlor",
+      "me want cookie"
+    ],
+    "game_booths": [],
+    "retail": [
+      "big bird s emporium"
+    ]
+  },
+  "sci-fi city": {
+    "rides": [
+      "battlestar galactica human",
+      "battlestar galactica cylon",
+      "transformers the ride the ultimate 3d battle",
+      "accelerator"
+    ],
+    "shows": [
+      "transformers voices of cybertron"
+    ],
+    "dinning": [
+      "frozen fuel",
+      "planet yen",
+      "starbot café",
+      "stardots"
+    ],
+    "game_booths": [
+      "sci fi games"
+    ],
+    "retail": [
+      "transformers supply vault"
+    ]
+  },
+  "ancient egypt": {
+    "rides": [
+      "revenge of the mummy",
+      "treasure hunters",
+      "sesame street goes bollywood"
+    ],
+    "shows": [
+      "aset warrior",
+      "anubis guards",
+      "egyptian guards"
+    ],
+    "dinning": [],
+    "game_booths": [],
+    "retail": []
+  },
+  "the lost world": {
+    "rides": [
+      "canopy flyer",
+      "dino soarin",
+      "jurassic park rapids adventure"
+    ],
+    "shows": [
+      "hatched featuring dr rodney",
+      "waterworld",
+      "baby kilos naptime tango",
+      "raptor encounter with blue",
+      "raptor encounter generations"
+    ],
+    "dinning": [
+      "discovery food court",
+      "fossil fuels",
+      "jungle bites"
+    ],
+    "game_booths": [
+      "the lost world games"
+    ],
+    "retail": [
+      "the dino store"
+    ]
+  },
+  "far far away": {
+    "rides": [
+      "enchanted airways",
+      "magic potion spin",
+      "puss in boots giant journey"
+    ],
+    "shows": [
+      "donkey live",
+      "fortune favors the furry",
+      "shrek 4 d adventure",
+      "happily ever after"
+    ],
+    "dinning": [
+      "friar s good food",
+      "goldilocks"
+    ],
+    "game_booths": [],
+    "retail": [
+      "fairy godmother s potion shop"
+    ]
+  }
+}

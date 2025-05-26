@@ -17,8 +17,9 @@ CS605-NLP-PROJECT/
 │   ├── data_cleaning.ipynb                # Data preprocessing and cleaning notebook
 │   └── uss_eda_notebook.ipynb             # Exploratory data analysis notebook
 ├── output/                              # Generated outputs and results
+│   ├── dashboard/                         # Dashboard-related files and configurations
+│   │   └── config/                          # Dashboard configuration and reference data
 │   ├── figures/                           # Generated plots and visualizations
-│   │   ├── dashboard/                       # Dashboard-related charts and graphs
 │   │   └── eda/                             # Exploratory data analysis visualizations
 │   ├── models/                            # Trained machine learning models
 │   └── results/                           # Analysis results
