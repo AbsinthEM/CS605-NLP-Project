@@ -3,7 +3,7 @@
     "total_reviews": 29412,
     "dataset_shape": [
       29412,
-      19
+      17
     ],
     "structured_coverage": 0.25458996328029376,
     "avg_rating": 4.39,
@@ -38,13 +38,18 @@
   },
   "facility_analysis": {
     "category_mentions": {
-      "Rides & Attractions": "11534",
-      "Service & Staff": "1350",
-      "Wait & Queue Management": "8873",
-      "Pricing & Value": "6300",
-      "Facilities & Amenities": "1407",
-      "Experience Quality": "8590",
-      "Visitor Demographics": "4782"
+      "Rides & Attractions": "11502",
+      "Shows & Entertainment": "2959",
+      "Food & Beverage": "6797",
+      "Shopping & Retail": "956",
+      "Theme Areas": "4309",
+      "Service & Staff": "1621",
+      "Wait & Queue Management": "8893",
+      "Pricing & Value": "6357",
+      "Facilities & Amenities": "699",
+      "Games & Activities": "947",
+      "Experience Quality": "8967",
+      "Visitor Demographics": "5048"
     },
     "specific_facilities": {
       "transformers": "1936",
@@ -88,6 +93,6 @@
   "file_info": {
     "source_file": "data/processed/USS_Reviews_Silver.csv",
     "output_file": "data/processed/USS_EDA_Summary.json",
-    "analysis_timestamp": "2025-05-24T12:11:13.897748"
+    "analysis_timestamp": "2025-05-26T21:15:55.415479"
   }
 }
