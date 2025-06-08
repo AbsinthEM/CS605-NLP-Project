@@ -1,0 +1,7 @@
+Persona,Detection Count,Detection Rate (%),Average Score,Correlation with Rating
+Family Visitors,2218,73.9%,0.351,0.203
+Thrill Seekers,2365,78.8%,0.374,0.154
+International Tourists,1840,61.3%,0.300,0.111
+Couples & Romantic,1824,60.8%,0.292,0.254
+Budget-Conscious,690,23.0%,0.194,-0.018
+Premium Seekers,1460,48.7%,0.246,-0.010
