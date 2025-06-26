@@ -1,0 +1,13 @@
+Strategy,Model,Accuracy,F1_Macro,F1_Weighted,AUC,F1_Macro_float
+original,lightgbm,0.774,0.609,0.780,0.843,0.609
+original,xgboost,0.805,0.598,0.786,0.851,0.598
+original,random_forest,0.766,0.578,0.763,0.837,0.578
+smote,lightgbm,0.795,0.595,0.783,0.837,0.595
+smote,xgboost,0.793,0.585,0.780,0.841,0.585
+smote,random_forest,0.770,0.585,0.770,0.846,0.585
+adasyn,lightgbm,0.784,0.561,0.768,0.843,0.561
+adasyn,xgboost,0.790,0.585,0.778,0.840,0.585
+adasyn,random_forest,0.747,0.570,0.754,0.841,0.57
+smote_enn,lightgbm,0.728,0.564,0.744,0.831,0.564
+smote_enn,xgboost,0.706,0.554,0.730,0.825,0.554
+smote_enn,random_forest,0.689,0.554,0.720,0.833,0.554

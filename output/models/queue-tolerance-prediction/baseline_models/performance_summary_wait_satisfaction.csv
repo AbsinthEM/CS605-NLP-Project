@@ -1,0 +1,4 @@
+Strategy,Model,Accuracy,F1_Macro,F1_Weighted,AUC,F1_Macro_float
+original,lightgbm,0.850,0.765,0.851,0.926,0.765
+original,xgboost,0.885,0.803,0.879,0.936,0.803
+original,random_forest,0.857,0.778,0.856,0.928,0.778
