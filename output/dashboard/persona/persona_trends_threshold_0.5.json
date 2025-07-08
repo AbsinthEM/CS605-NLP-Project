@@ -1,0 +1,3105 @@
+{
+  "chart_type": "trends",
+  "title": "User Persona Trends Over Time",
+  "subtitle": "Monthly distribution from 2018-07 to 2025-05",
+  "time_unit": "month",
+  "total_months": 83,
+  "personas": {
+    "budget_conscious": {
+      "label": "Budget Conscious",
+      "raw_persona": "budget_conscious",
+      "total_reviews": 851,
+      "avg_percentage": 4.6,
+      "peak_month": {
+        "date": "2018-12",
+        "count": 35,
+        "percentage": 7.7
+      },
+      "lowest_month": {
+        "date": "2020-04",
+        "count": 0,
+        "percentage": 0.0
+      },
+      "data": [
+        {
+          "date": "2018-07",
+          "count": 4,
+          "percentage": 8.9,
+          "total_reviews": 45
+        },
+        {
+          "date": "2018-08",
+          "count": 17,
+          "percentage": 3.6,
+          "total_reviews": 476
+        },
+        {
+          "date": "2018-09",
+          "count": 18,
+          "percentage": 5.0,
+          "total_reviews": 361
+        },
+        {
+          "date": "2018-10",
+          "count": 30,
+          "percentage": 7.9,
+          "total_reviews": 381
+        },
+        {
+          "date": "2018-11",
+          "count": 12,
+          "percentage": 3.3,
+          "total_reviews": 361
+        },
+        {
+          "date": "2018-12",
+          "count": 35,
+          "percentage": 7.7,
+          "total_reviews": 452
+        },
+        {
+          "date": "2019-01",
+          "count": 33,
+          "percentage": 6.7,
+          "total_reviews": 494
+        },
+        {
+          "date": "2019-02",
+          "count": 25,
+          "percentage": 7.5,
+          "total_reviews": 332
+        },
+        {
+          "date": "2019-03",
+          "count": 19,
+          "percentage": 4.6,
+          "total_reviews": 414
+        },
+        {
+          "date": "2019-04",
+          "count": 30,
+          "percentage": 6.8,
+          "total_reviews": 438
+        },
+        {
+          "date": "2019-05",
+          "count": 21,
+          "percentage": 5.0,
+          "total_reviews": 416
+        },
+        {
+          "date": "2019-06",
+          "count": 26,
+          "percentage": 6.6,
+          "total_reviews": 391
+        },
+        {
+          "date": "2019-07",
+          "count": 28,
+          "percentage": 5.8,
+          "total_reviews": 483
+        },
+        {
+          "date": "2019-08",
+          "count": 28,
+          "percentage": 5.8,
+          "total_reviews": 484
+        },
+        {
+          "date": "2019-09",
+          "count": 19,
+          "percentage": 6.2,
+          "total_reviews": 306
+        },
+        {
+          "date": "2019-10",
+          "count": 21,
+          "percentage": 5.1,
+          "total_reviews": 415
+        },
+        {
+          "date": "2019-11",
+          "count": 23,
+          "percentage": 6.6,
+          "total_reviews": 348
+        },
+        {
+          "date": "2019-12",
+          "count": 16,
+          "percentage": 4.3,
+          "total_reviews": 374
+        },
+        {
+          "date": "2020-01",
+          "count": 30,
+          "percentage": 6.0,
+          "total_reviews": 496
+        },
+        {
+          "date": "2020-02",
+          "count": 16,
+          "percentage": 4.9,
+          "total_reviews": 328
+        },
+        {
+          "date": "2020-03",
+          "count": 8,
+          "percentage": 5.7,
+          "total_reviews": 141
+        },
+        {
+          "date": "2020-04",
+          "count": 0,
+          "percentage": 0.0,
+          "total_reviews": 19
+        },
+        {
+          "date": "2020-05",
+          "count": 1,
+          "percentage": 4.5,
+          "total_reviews": 22
+        },
+        {
+          "date": "2020-06",
+          "count": 0,
+          "percentage": 0.0,
+          "total_reviews": 19
+        },
+        {
+          "date": "2020-07",
+          "count": 1,
+          "percentage": 4.2,
+          "total_reviews": 24
+        },
+        {
+          "date": "2020-08",
+          "count": 4,
+          "percentage": 8.2,
+          "total_reviews": 49
+        },
+        {
+          "date": "2020-09",
+          "count": 3,
+          "percentage": 7.3,
+          "total_reviews": 41
+        },
+        {
+          "date": "2020-10",
+          "count": 4,
+          "percentage": 8.0,
+          "total_reviews": 50
+        },
+        {
+          "date": "2020-11",
+          "count": 0,
+          "percentage": 0.0,
+          "total_reviews": 46
+        },
+        {
+          "date": "2020-12",
+          "count": 6,
+          "percentage": 4.5,
+          "total_reviews": 134
+        },
+        {
+          "date": "2021-01",
+          "count": 2,
+          "percentage": 3.1,
+          "total_reviews": 65
+        },
+        {
+          "date": "2021-02",
+          "count": 4,
+          "percentage": 7.4,
+          "total_reviews": 54
+        },
+        {
+          "date": "2021-03",
+          "count": 1,
+          "percentage": 1.6,
+          "total_reviews": 61
+        },
+        {
+          "date": "2021-04",
+          "count": 4,
+          "percentage": 5.8,
+          "total_reviews": 69
+        },
+        {
+          "date": "2021-05",
+          "count": 2,
+          "percentage": 5.6,
+          "total_reviews": 36
+        },
+        {
+          "date": "2021-06",
+          "count": 0,
+          "percentage": 0.0,
+          "total_reviews": 37
+        },
+        {
+          "date": "2021-07",
+          "count": 2,
+          "percentage": 6.5,
+          "total_reviews": 31
+        },
+        {
+          "date": "2021-08",
+          "count": 1,
+          "percentage": 3.7,
+          "total_reviews": 27
+        },
+        {
+          "date": "2021-09",
+          "count": 1,
+          "percentage": 3.1,
+          "total_reviews": 32
+        },
+        {
+          "date": "2021-10",
+          "count": 3,
+          "percentage": 8.1,
+          "total_reviews": 37
+        },
+        {
+          "date": "2021-11",
+          "count": 0,
+          "percentage": 0.0,
+          "total_reviews": 37
+        },
+        {
+          "date": "2021-12",
+          "count": 4,
+          "percentage": 4.9,
+          "total_reviews": 81
+        },
+        {
+          "date": "2022-01",
+          "count": 1,
+          "percentage": 1.9,
+          "total_reviews": 53
+        },
+        {
+          "date": "2022-02",
+          "count": 0,
+          "percentage": 0.0,
+          "total_reviews": 31
+        },
+        {
+          "date": "2022-03",
+          "count": 1,
+          "percentage": 1.8,
+          "total_reviews": 55
+        },
+        {
+          "date": "2022-04",
+          "count": 2,
+          "percentage": 2.8,
+          "total_reviews": 72
+        },
+        {
+          "date": "2022-05",
+          "count": 2,
+          "percentage": 1.9,
+          "total_reviews": 107
+        },
+        {
+          "date": "2022-06",
+          "count": 7,
+          "percentage": 4.8,
+          "total_reviews": 146
+        },
+        {
+          "date": "2022-07",
+          "count": 7,
+          "percentage": 4.0,
+          "total_reviews": 176
+        },
+        {
+          "date": "2022-08",
+          "count": 4,
+          "percentage": 2.4,
+          "total_reviews": 170
+        },
+        {
+          "date": "2022-09",
+          "count": 10,
+          "percentage": 5.6,
+          "total_reviews": 177
+        },
+        {
+          "date": "2022-10",
+          "count": 10,
+          "percentage": 4.6,
+          "total_reviews": 218
+        },
+        {
+          "date": "2022-11",
+          "count": 6,
+          "percentage": 3.7,
+          "total_reviews": 162
+        },
+        {
+          "date": "2022-12",
+          "count": 12,
+          "percentage": 5.3,
+          "total_reviews": 227
+        },
+        {
+          "date": "2023-01",
+          "count": 16,
+          "percentage": 6.2,
+          "total_reviews": 258
+        },
+        {
+          "date": "2023-02",
+          "count": 12,
+          "percentage": 5.5,
+          "total_reviews": 218
+        },
+        {
+          "date": "2023-03",
+          "count": 8,
+          "percentage": 3.4,
+          "total_reviews": 238
+        },
+        {
+          "date": "2023-04",
+          "count": 5,
+          "percentage": 1.8,
+          "total_reviews": 285
+        },
+        {
+          "date": "2023-05",
+          "count": 7,
+          "percentage": 2.5,
+          "total_reviews": 276
+        },
+        {
+          "date": "2023-06",
+          "count": 2,
+          "percentage": 0.7,
+          "total_reviews": 280
+        },
+        {
+          "date": "2023-07",
+          "count": 14,
+          "percentage": 3.8,
+          "total_reviews": 371
+        },
+        {
+          "date": "2023-08",
+          "count": 22,
+          "percentage": 6.5,
+          "total_reviews": 341
+        },
+        {
+          "date": "2023-09",
+          "count": 16,
+          "percentage": 7.7,
+          "total_reviews": 207
+        },
+        {
+          "date": "2023-10",
+          "count": 12,
+          "percentage": 5.4,
+          "total_reviews": 222
+        },
+        {
+          "date": "2023-11",
+          "count": 8,
+          "percentage": 4.8,
+          "total_reviews": 168
+        },
+        {
+          "date": "2023-12",
+          "count": 12,
+          "percentage": 7.7,
+          "total_reviews": 155
+        },
+        {
+          "date": "2024-01",
+          "count": 8,
+          "percentage": 4.2,
+          "total_reviews": 189
+        },
+        {
+          "date": "2024-02",
+          "count": 9,
+          "percentage": 5.1,
+          "total_reviews": 177
+        },
+        {
+          "date": "2024-03",
+          "count": 4,
+          "percentage": 2.4,
+          "total_reviews": 167
+        },
+        {
+          "date": "2024-04",
+          "count": 8,
+          "percentage": 3.6,
+          "total_reviews": 222
+        },
+        {
+          "date": "2024-05",
+          "count": 5,
+          "percentage": 2.4,
+          "total_reviews": 211
+        },
+        {
+          "date": "2024-06",
+          "count": 9,
+          "percentage": 4.0,
+          "total_reviews": 223
+        },
+        {
+          "date": "2024-07",
+          "count": 12,
+          "percentage": 5.0,
+          "total_reviews": 239
+        },
+        {
+          "date": "2024-08",
+          "count": 11,
+          "percentage": 4.4,
+          "total_reviews": 249
+        },
+        {
+          "date": "2024-09",
+          "count": 3,
+          "percentage": 2.3,
+          "total_reviews": 130
+        },
+        {
+          "date": "2024-10",
+          "count": 8,
+          "percentage": 5.1,
+          "total_reviews": 158
+        },
+        {
+          "date": "2024-11",
+          "count": 11,
+          "percentage": 7.7,
+          "total_reviews": 143
+        },
+        {
+          "date": "2024-12",
+          "count": 5,
+          "percentage": 2.3,
+          "total_reviews": 216
+        },
+        {
+          "date": "2025-01",
+          "count": 12,
+          "percentage": 5.1,
+          "total_reviews": 237
+        },
+        {
+          "date": "2025-02",
+          "count": 17,
+          "percentage": 9.6,
+          "total_reviews": 178
+        },
+        {
+          "date": "2025-03",
+          "count": 5,
+          "percentage": 2.4,
+          "total_reviews": 207
+        },
+        {
+          "date": "2025-04",
+          "count": 12,
+          "percentage": 4.7,
+          "total_reviews": 254
+        },
+        {
+          "date": "2025-05",
+          "count": 14,
+          "percentage": 6.5,
+          "total_reviews": 216
+        }
+      ]
+    },
+    "experience_focused": {
+      "label": "Experience Focused",
+      "raw_persona": "experience_focused",
+      "total_reviews": 6682,
+      "avg_percentage": 42.4,
+      "peak_month": {
+        "date": "2023-07",
+        "count": 236,
+        "percentage": 63.6
+      },
+      "lowest_month": {
+        "date": "2020-05",
+        "count": 2,
+        "percentage": 9.1
+      },
+      "data": [
+        {
+          "date": "2018-07",
+          "count": 11,
+          "percentage": 24.4,
+          "total_reviews": 45
+        },
+        {
+          "date": "2018-08",
+          "count": 177,
+          "percentage": 37.2,
+          "total_reviews": 476
+        },
+        {
+          "date": "2018-09",
+          "count": 104,
+          "percentage": 28.8,
+          "total_reviews": 361
+        },
+        {
+          "date": "2018-10",
+          "count": 99,
+          "percentage": 26.0,
+          "total_reviews": 381
+        },
+        {
+          "date": "2018-11",
+          "count": 104,
+          "percentage": 28.8,
+          "total_reviews": 361
+        },
+        {
+          "date": "2018-12",
+          "count": 117,
+          "percentage": 25.9,
+          "total_reviews": 452
+        },
+        {
+          "date": "2019-01",
+          "count": 153,
+          "percentage": 31.0,
+          "total_reviews": 494
+        },
+        {
+          "date": "2019-02",
+          "count": 101,
+          "percentage": 30.4,
+          "total_reviews": 332
+        },
+        {
+          "date": "2019-03",
+          "count": 99,
+          "percentage": 23.9,
+          "total_reviews": 414
+        },
+        {
+          "date": "2019-04",
+          "count": 115,
+          "percentage": 26.3,
+          "total_reviews": 438
+        },
+        {
+          "date": "2019-05",
+          "count": 134,
+          "percentage": 32.2,
+          "total_reviews": 416
+        },
+        {
+          "date": "2019-06",
+          "count": 100,
+          "percentage": 25.6,
+          "total_reviews": 391
+        },
+        {
+          "date": "2019-07",
+          "count": 172,
+          "percentage": 35.6,
+          "total_reviews": 483
+        },
+        {
+          "date": "2019-08",
+          "count": 200,
+          "percentage": 41.3,
+          "total_reviews": 484
+        },
+        {
+          "date": "2019-09",
+          "count": 90,
+          "percentage": 29.4,
+          "total_reviews": 306
+        },
+        {
+          "date": "2019-10",
+          "count": 152,
+          "percentage": 36.6,
+          "total_reviews": 415
+        },
+        {
+          "date": "2019-11",
+          "count": 97,
+          "percentage": 27.9,
+          "total_reviews": 348
+        },
+        {
+          "date": "2019-12",
+          "count": 130,
+          "percentage": 34.8,
+          "total_reviews": 374
+        },
+        {
+          "date": "2020-01",
+          "count": 182,
+          "percentage": 36.7,
+          "total_reviews": 496
+        },
+        {
+          "date": "2020-02",
+          "count": 88,
+          "percentage": 26.8,
+          "total_reviews": 328
+        },
+        {
+          "date": "2020-03",
+          "count": 26,
+          "percentage": 18.4,
+          "total_reviews": 141
+        },
+        {
+          "date": "2020-04",
+          "count": 6,
+          "percentage": 31.6,
+          "total_reviews": 19
+        },
+        {
+          "date": "2020-05",
+          "count": 2,
+          "percentage": 9.1,
+          "total_reviews": 22
+        },
+        {
+          "date": "2020-06",
+          "count": 4,
+          "percentage": 21.1,
+          "total_reviews": 19
+        },
+        {
+          "date": "2020-07",
+          "count": 15,
+          "percentage": 62.5,
+          "total_reviews": 24
+        },
+        {
+          "date": "2020-08",
+          "count": 21,
+          "percentage": 42.9,
+          "total_reviews": 49
+        },
+        {
+          "date": "2020-09",
+          "count": 20,
+          "percentage": 48.8,
+          "total_reviews": 41
+        },
+        {
+          "date": "2020-10",
+          "count": 18,
+          "percentage": 36.0,
+          "total_reviews": 50
+        },
+        {
+          "date": "2020-11",
+          "count": 19,
+          "percentage": 41.3,
+          "total_reviews": 46
+        },
+        {
+          "date": "2020-12",
+          "count": 91,
+          "percentage": 67.9,
+          "total_reviews": 134
+        },
+        {
+          "date": "2021-01",
+          "count": 26,
+          "percentage": 40.0,
+          "total_reviews": 65
+        },
+        {
+          "date": "2021-02",
+          "count": 34,
+          "percentage": 63.0,
+          "total_reviews": 54
+        },
+        {
+          "date": "2021-03",
+          "count": 31,
+          "percentage": 50.8,
+          "total_reviews": 61
+        },
+        {
+          "date": "2021-04",
+          "count": 33,
+          "percentage": 47.8,
+          "total_reviews": 69
+        },
+        {
+          "date": "2021-05",
+          "count": 18,
+          "percentage": 50.0,
+          "total_reviews": 36
+        },
+        {
+          "date": "2021-06",
+          "count": 21,
+          "percentage": 56.8,
+          "total_reviews": 37
+        },
+        {
+          "date": "2021-07",
+          "count": 11,
+          "percentage": 35.5,
+          "total_reviews": 31
+        },
+        {
+          "date": "2021-08",
+          "count": 7,
+          "percentage": 25.9,
+          "total_reviews": 27
+        },
+        {
+          "date": "2021-09",
+          "count": 15,
+          "percentage": 46.9,
+          "total_reviews": 32
+        },
+        {
+          "date": "2021-10",
+          "count": 20,
+          "percentage": 54.1,
+          "total_reviews": 37
+        },
+        {
+          "date": "2021-11",
+          "count": 23,
+          "percentage": 62.2,
+          "total_reviews": 37
+        },
+        {
+          "date": "2021-12",
+          "count": 54,
+          "percentage": 66.7,
+          "total_reviews": 81
+        },
+        {
+          "date": "2022-01",
+          "count": 35,
+          "percentage": 66.0,
+          "total_reviews": 53
+        },
+        {
+          "date": "2022-02",
+          "count": 17,
+          "percentage": 54.8,
+          "total_reviews": 31
+        },
+        {
+          "date": "2022-03",
+          "count": 39,
+          "percentage": 70.9,
+          "total_reviews": 55
+        },
+        {
+          "date": "2022-04",
+          "count": 44,
+          "percentage": 61.1,
+          "total_reviews": 72
+        },
+        {
+          "date": "2022-05",
+          "count": 52,
+          "percentage": 48.6,
+          "total_reviews": 107
+        },
+        {
+          "date": "2022-06",
+          "count": 73,
+          "percentage": 50.0,
+          "total_reviews": 146
+        },
+        {
+          "date": "2022-07",
+          "count": 89,
+          "percentage": 50.6,
+          "total_reviews": 176
+        },
+        {
+          "date": "2022-08",
+          "count": 84,
+          "percentage": 49.4,
+          "total_reviews": 170
+        },
+        {
+          "date": "2022-09",
+          "count": 73,
+          "percentage": 41.2,
+          "total_reviews": 177
+        },
+        {
+          "date": "2022-10",
+          "count": 114,
+          "percentage": 52.3,
+          "total_reviews": 218
+        },
+        {
+          "date": "2022-11",
+          "count": 90,
+          "percentage": 55.6,
+          "total_reviews": 162
+        },
+        {
+          "date": "2022-12",
+          "count": 112,
+          "percentage": 49.3,
+          "total_reviews": 227
+        },
+        {
+          "date": "2023-01",
+          "count": 120,
+          "percentage": 46.5,
+          "total_reviews": 258
+        },
+        {
+          "date": "2023-02",
+          "count": 95,
+          "percentage": 43.6,
+          "total_reviews": 218
+        },
+        {
+          "date": "2023-03",
+          "count": 79,
+          "percentage": 33.2,
+          "total_reviews": 238
+        },
+        {
+          "date": "2023-04",
+          "count": 128,
+          "percentage": 44.9,
+          "total_reviews": 285
+        },
+        {
+          "date": "2023-05",
+          "count": 140,
+          "percentage": 50.7,
+          "total_reviews": 276
+        },
+        {
+          "date": "2023-06",
+          "count": 131,
+          "percentage": 46.8,
+          "total_reviews": 280
+        },
+        {
+          "date": "2023-07",
+          "count": 236,
+          "percentage": 63.6,
+          "total_reviews": 371
+        },
+        {
+          "date": "2023-08",
+          "count": 191,
+          "percentage": 56.0,
+          "total_reviews": 341
+        },
+        {
+          "date": "2023-09",
+          "count": 89,
+          "percentage": 43.0,
+          "total_reviews": 207
+        },
+        {
+          "date": "2023-10",
+          "count": 114,
+          "percentage": 51.4,
+          "total_reviews": 222
+        },
+        {
+          "date": "2023-11",
+          "count": 68,
+          "percentage": 40.5,
+          "total_reviews": 168
+        },
+        {
+          "date": "2023-12",
+          "count": 51,
+          "percentage": 32.9,
+          "total_reviews": 155
+        },
+        {
+          "date": "2024-01",
+          "count": 67,
+          "percentage": 35.4,
+          "total_reviews": 189
+        },
+        {
+          "date": "2024-02",
+          "count": 68,
+          "percentage": 38.4,
+          "total_reviews": 177
+        },
+        {
+          "date": "2024-03",
+          "count": 68,
+          "percentage": 40.7,
+          "total_reviews": 167
+        },
+        {
+          "date": "2024-04",
+          "count": 91,
+          "percentage": 41.0,
+          "total_reviews": 222
+        },
+        {
+          "date": "2024-05",
+          "count": 87,
+          "percentage": 41.2,
+          "total_reviews": 211
+        },
+        {
+          "date": "2024-06",
+          "count": 97,
+          "percentage": 43.5,
+          "total_reviews": 223
+        },
+        {
+          "date": "2024-07",
+          "count": 100,
+          "percentage": 41.8,
+          "total_reviews": 239
+        },
+        {
+          "date": "2024-08",
+          "count": 141,
+          "percentage": 56.6,
+          "total_reviews": 249
+        },
+        {
+          "date": "2024-09",
+          "count": 52,
+          "percentage": 40.0,
+          "total_reviews": 130
+        },
+        {
+          "date": "2024-10",
+          "count": 71,
+          "percentage": 44.9,
+          "total_reviews": 158
+        },
+        {
+          "date": "2024-11",
+          "count": 60,
+          "percentage": 42.0,
+          "total_reviews": 143
+        },
+        {
+          "date": "2024-12",
+          "count": 106,
+          "percentage": 49.1,
+          "total_reviews": 216
+        },
+        {
+          "date": "2025-01",
+          "count": 97,
+          "percentage": 40.9,
+          "total_reviews": 237
+        },
+        {
+          "date": "2025-02",
+          "count": 68,
+          "percentage": 38.2,
+          "total_reviews": 178
+        },
+        {
+          "date": "2025-03",
+          "count": 85,
+          "percentage": 41.1,
+          "total_reviews": 207
+        },
+        {
+          "date": "2025-04",
+          "count": 118,
+          "percentage": 46.5,
+          "total_reviews": 254
+        },
+        {
+          "date": "2025-05",
+          "count": 102,
+          "percentage": 47.2,
+          "total_reviews": 216
+        }
+      ]
+    },
+    "families": {
+      "label": "Families",
+      "raw_persona": "families",
+      "total_reviews": 3055,
+      "avg_percentage": 17.7,
+      "peak_month": {
+        "date": "2018-12",
+        "count": 118,
+        "percentage": 26.1
+      },
+      "lowest_month": {
+        "date": "2020-07",
+        "count": 1,
+        "percentage": 4.2
+      },
+      "data": [
+        {
+          "date": "2018-07",
+          "count": 7,
+          "percentage": 15.6,
+          "total_reviews": 45
+        },
+        {
+          "date": "2018-08",
+          "count": 94,
+          "percentage": 19.7,
+          "total_reviews": 476
+        },
+        {
+          "date": "2018-09",
+          "count": 85,
+          "percentage": 23.5,
+          "total_reviews": 361
+        },
+        {
+          "date": "2018-10",
+          "count": 88,
+          "percentage": 23.1,
+          "total_reviews": 381
+        },
+        {
+          "date": "2018-11",
+          "count": 80,
+          "percentage": 22.2,
+          "total_reviews": 361
+        },
+        {
+          "date": "2018-12",
+          "count": 118,
+          "percentage": 26.1,
+          "total_reviews": 452
+        },
+        {
+          "date": "2019-01",
+          "count": 110,
+          "percentage": 22.3,
+          "total_reviews": 494
+        },
+        {
+          "date": "2019-02",
+          "count": 76,
+          "percentage": 22.9,
+          "total_reviews": 332
+        },
+        {
+          "date": "2019-03",
+          "count": 85,
+          "percentage": 20.5,
+          "total_reviews": 414
+        },
+        {
+          "date": "2019-04",
+          "count": 90,
+          "percentage": 20.5,
+          "total_reviews": 438
+        },
+        {
+          "date": "2019-05",
+          "count": 96,
+          "percentage": 23.1,
+          "total_reviews": 416
+        },
+        {
+          "date": "2019-06",
+          "count": 94,
+          "percentage": 24.0,
+          "total_reviews": 391
+        },
+        {
+          "date": "2019-07",
+          "count": 88,
+          "percentage": 18.2,
+          "total_reviews": 483
+        },
+        {
+          "date": "2019-08",
+          "count": 72,
+          "percentage": 14.9,
+          "total_reviews": 484
+        },
+        {
+          "date": "2019-09",
+          "count": 58,
+          "percentage": 19.0,
+          "total_reviews": 306
+        },
+        {
+          "date": "2019-10",
+          "count": 74,
+          "percentage": 17.8,
+          "total_reviews": 415
+        },
+        {
+          "date": "2019-11",
+          "count": 74,
+          "percentage": 21.3,
+          "total_reviews": 348
+        },
+        {
+          "date": "2019-12",
+          "count": 72,
+          "percentage": 19.3,
+          "total_reviews": 374
+        },
+        {
+          "date": "2020-01",
+          "count": 88,
+          "percentage": 17.7,
+          "total_reviews": 496
+        },
+        {
+          "date": "2020-02",
+          "count": 76,
+          "percentage": 23.2,
+          "total_reviews": 328
+        },
+        {
+          "date": "2020-03",
+          "count": 35,
+          "percentage": 24.8,
+          "total_reviews": 141
+        },
+        {
+          "date": "2020-04",
+          "count": 5,
+          "percentage": 26.3,
+          "total_reviews": 19
+        },
+        {
+          "date": "2020-05",
+          "count": 7,
+          "percentage": 31.8,
+          "total_reviews": 22
+        },
+        {
+          "date": "2020-06",
+          "count": 2,
+          "percentage": 10.5,
+          "total_reviews": 19
+        },
+        {
+          "date": "2020-07",
+          "count": 1,
+          "percentage": 4.2,
+          "total_reviews": 24
+        },
+        {
+          "date": "2020-08",
+          "count": 10,
+          "percentage": 20.4,
+          "total_reviews": 49
+        },
+        {
+          "date": "2020-09",
+          "count": 8,
+          "percentage": 19.5,
+          "total_reviews": 41
+        },
+        {
+          "date": "2020-10",
+          "count": 13,
+          "percentage": 26.0,
+          "total_reviews": 50
+        },
+        {
+          "date": "2020-11",
+          "count": 14,
+          "percentage": 30.4,
+          "total_reviews": 46
+        },
+        {
+          "date": "2020-12",
+          "count": 14,
+          "percentage": 10.4,
+          "total_reviews": 134
+        },
+        {
+          "date": "2021-01",
+          "count": 15,
+          "percentage": 23.1,
+          "total_reviews": 65
+        },
+        {
+          "date": "2021-02",
+          "count": 2,
+          "percentage": 3.7,
+          "total_reviews": 54
+        },
+        {
+          "date": "2021-03",
+          "count": 14,
+          "percentage": 23.0,
+          "total_reviews": 61
+        },
+        {
+          "date": "2021-04",
+          "count": 11,
+          "percentage": 15.9,
+          "total_reviews": 69
+        },
+        {
+          "date": "2021-05",
+          "count": 6,
+          "percentage": 16.7,
+          "total_reviews": 36
+        },
+        {
+          "date": "2021-06",
+          "count": 5,
+          "percentage": 13.5,
+          "total_reviews": 37
+        },
+        {
+          "date": "2021-07",
+          "count": 8,
+          "percentage": 25.8,
+          "total_reviews": 31
+        },
+        {
+          "date": "2021-08",
+          "count": 9,
+          "percentage": 33.3,
+          "total_reviews": 27
+        },
+        {
+          "date": "2021-09",
+          "count": 8,
+          "percentage": 25.0,
+          "total_reviews": 32
+        },
+        {
+          "date": "2021-10",
+          "count": 5,
+          "percentage": 13.5,
+          "total_reviews": 37
+        },
+        {
+          "date": "2021-11",
+          "count": 6,
+          "percentage": 16.2,
+          "total_reviews": 37
+        },
+        {
+          "date": "2021-12",
+          "count": 13,
+          "percentage": 16.0,
+          "total_reviews": 81
+        },
+        {
+          "date": "2022-01",
+          "count": 4,
+          "percentage": 7.5,
+          "total_reviews": 53
+        },
+        {
+          "date": "2022-02",
+          "count": 6,
+          "percentage": 19.4,
+          "total_reviews": 31
+        },
+        {
+          "date": "2022-03",
+          "count": 5,
+          "percentage": 9.1,
+          "total_reviews": 55
+        },
+        {
+          "date": "2022-04",
+          "count": 10,
+          "percentage": 13.9,
+          "total_reviews": 72
+        },
+        {
+          "date": "2022-05",
+          "count": 16,
+          "percentage": 15.0,
+          "total_reviews": 107
+        },
+        {
+          "date": "2022-06",
+          "count": 24,
+          "percentage": 16.4,
+          "total_reviews": 146
+        },
+        {
+          "date": "2022-07",
+          "count": 20,
+          "percentage": 11.4,
+          "total_reviews": 176
+        },
+        {
+          "date": "2022-08",
+          "count": 21,
+          "percentage": 12.4,
+          "total_reviews": 170
+        },
+        {
+          "date": "2022-09",
+          "count": 25,
+          "percentage": 14.1,
+          "total_reviews": 177
+        },
+        {
+          "date": "2022-10",
+          "count": 27,
+          "percentage": 12.4,
+          "total_reviews": 218
+        },
+        {
+          "date": "2022-11",
+          "count": 10,
+          "percentage": 6.2,
+          "total_reviews": 162
+        },
+        {
+          "date": "2022-12",
+          "count": 36,
+          "percentage": 15.9,
+          "total_reviews": 227
+        },
+        {
+          "date": "2023-01",
+          "count": 37,
+          "percentage": 14.3,
+          "total_reviews": 258
+        },
+        {
+          "date": "2023-02",
+          "count": 32,
+          "percentage": 14.7,
+          "total_reviews": 218
+        },
+        {
+          "date": "2023-03",
+          "count": 63,
+          "percentage": 26.5,
+          "total_reviews": 238
+        },
+        {
+          "date": "2023-04",
+          "count": 48,
+          "percentage": 16.8,
+          "total_reviews": 285
+        },
+        {
+          "date": "2023-05",
+          "count": 40,
+          "percentage": 14.5,
+          "total_reviews": 276
+        },
+        {
+          "date": "2023-06",
+          "count": 50,
+          "percentage": 17.9,
+          "total_reviews": 280
+        },
+        {
+          "date": "2023-07",
+          "count": 30,
+          "percentage": 8.1,
+          "total_reviews": 371
+        },
+        {
+          "date": "2023-08",
+          "count": 32,
+          "percentage": 9.4,
+          "total_reviews": 341
+        },
+        {
+          "date": "2023-09",
+          "count": 24,
+          "percentage": 11.6,
+          "total_reviews": 207
+        },
+        {
+          "date": "2023-10",
+          "count": 29,
+          "percentage": 13.1,
+          "total_reviews": 222
+        },
+        {
+          "date": "2023-11",
+          "count": 23,
+          "percentage": 13.7,
+          "total_reviews": 168
+        },
+        {
+          "date": "2023-12",
+          "count": 28,
+          "percentage": 18.1,
+          "total_reviews": 155
+        },
+        {
+          "date": "2024-01",
+          "count": 38,
+          "percentage": 20.1,
+          "total_reviews": 189
+        },
+        {
+          "date": "2024-02",
+          "count": 36,
+          "percentage": 20.3,
+          "total_reviews": 177
+        },
+        {
+          "date": "2024-03",
+          "count": 21,
+          "percentage": 12.6,
+          "total_reviews": 167
+        },
+        {
+          "date": "2024-04",
+          "count": 38,
+          "percentage": 17.1,
+          "total_reviews": 222
+        },
+        {
+          "date": "2024-05",
+          "count": 41,
+          "percentage": 19.4,
+          "total_reviews": 211
+        },
+        {
+          "date": "2024-06",
+          "count": 31,
+          "percentage": 13.9,
+          "total_reviews": 223
+        },
+        {
+          "date": "2024-07",
+          "count": 30,
+          "percentage": 12.6,
+          "total_reviews": 239
+        },
+        {
+          "date": "2024-08",
+          "count": 26,
+          "percentage": 10.4,
+          "total_reviews": 249
+        },
+        {
+          "date": "2024-09",
+          "count": 23,
+          "percentage": 17.7,
+          "total_reviews": 130
+        },
+        {
+          "date": "2024-10",
+          "count": 28,
+          "percentage": 17.7,
+          "total_reviews": 158
+        },
+        {
+          "date": "2024-11",
+          "count": 19,
+          "percentage": 13.3,
+          "total_reviews": 143
+        },
+        {
+          "date": "2024-12",
+          "count": 37,
+          "percentage": 17.1,
+          "total_reviews": 216
+        },
+        {
+          "date": "2025-01",
+          "count": 43,
+          "percentage": 18.1,
+          "total_reviews": 237
+        },
+        {
+          "date": "2025-02",
+          "count": 35,
+          "percentage": 19.7,
+          "total_reviews": 178
+        },
+        {
+          "date": "2025-03",
+          "count": 58,
+          "percentage": 28.0,
+          "total_reviews": 207
+        },
+        {
+          "date": "2025-04",
+          "count": 35,
+          "percentage": 13.8,
+          "total_reviews": 254
+        },
+        {
+          "date": "2025-05",
+          "count": 40,
+          "percentage": 18.5,
+          "total_reviews": 216
+        }
+      ]
+    },
+    "international_tourists": {
+      "label": "International Tourists",
+      "raw_persona": "international_tourists",
+      "total_reviews": 2552,
+      "avg_percentage": 15.0,
+      "peak_month": {
+        "date": "2019-03",
+        "count": 98,
+        "percentage": 23.7
+      },
+      "lowest_month": {
+        "date": "2021-10",
+        "count": 3,
+        "percentage": 8.1
+      },
+      "data": [
+        {
+          "date": "2018-07",
+          "count": 9,
+          "percentage": 20.0,
+          "total_reviews": 45
+        },
+        {
+          "date": "2018-08",
+          "count": 73,
+          "percentage": 15.3,
+          "total_reviews": 476
+        },
+        {
+          "date": "2018-09",
+          "count": 66,
+          "percentage": 18.3,
+          "total_reviews": 361
+        },
+        {
+          "date": "2018-10",
+          "count": 68,
+          "percentage": 17.8,
+          "total_reviews": 381
+        },
+        {
+          "date": "2018-11",
+          "count": 76,
+          "percentage": 21.1,
+          "total_reviews": 361
+        },
+        {
+          "date": "2018-12",
+          "count": 72,
+          "percentage": 15.9,
+          "total_reviews": 452
+        },
+        {
+          "date": "2019-01",
+          "count": 94,
+          "percentage": 19.0,
+          "total_reviews": 494
+        },
+        {
+          "date": "2019-02",
+          "count": 71,
+          "percentage": 21.4,
+          "total_reviews": 332
+        },
+        {
+          "date": "2019-03",
+          "count": 98,
+          "percentage": 23.7,
+          "total_reviews": 414
+        },
+        {
+          "date": "2019-04",
+          "count": 84,
+          "percentage": 19.2,
+          "total_reviews": 438
+        },
+        {
+          "date": "2019-05",
+          "count": 79,
+          "percentage": 19.0,
+          "total_reviews": 416
+        },
+        {
+          "date": "2019-06",
+          "count": 86,
+          "percentage": 22.0,
+          "total_reviews": 391
+        },
+        {
+          "date": "2019-07",
+          "count": 69,
+          "percentage": 14.3,
+          "total_reviews": 483
+        },
+        {
+          "date": "2019-08",
+          "count": 73,
+          "percentage": 15.1,
+          "total_reviews": 484
+        },
+        {
+          "date": "2019-09",
+          "count": 48,
+          "percentage": 15.7,
+          "total_reviews": 306
+        },
+        {
+          "date": "2019-10",
+          "count": 69,
+          "percentage": 16.6,
+          "total_reviews": 415
+        },
+        {
+          "date": "2019-11",
+          "count": 60,
+          "percentage": 17.2,
+          "total_reviews": 348
+        },
+        {
+          "date": "2019-12",
+          "count": 62,
+          "percentage": 16.6,
+          "total_reviews": 374
+        },
+        {
+          "date": "2020-01",
+          "count": 77,
+          "percentage": 15.5,
+          "total_reviews": 496
+        },
+        {
+          "date": "2020-02",
+          "count": 72,
+          "percentage": 22.0,
+          "total_reviews": 328
+        },
+        {
+          "date": "2020-03",
+          "count": 26,
+          "percentage": 18.4,
+          "total_reviews": 141
+        },
+        {
+          "date": "2020-04",
+          "count": 4,
+          "percentage": 21.1,
+          "total_reviews": 19
+        },
+        {
+          "date": "2020-05",
+          "count": 7,
+          "percentage": 31.8,
+          "total_reviews": 22
+        },
+        {
+          "date": "2020-06",
+          "count": 8,
+          "percentage": 42.1,
+          "total_reviews": 19
+        },
+        {
+          "date": "2020-07",
+          "count": 4,
+          "percentage": 16.7,
+          "total_reviews": 24
+        },
+        {
+          "date": "2020-08",
+          "count": 5,
+          "percentage": 10.2,
+          "total_reviews": 49
+        },
+        {
+          "date": "2020-09",
+          "count": 4,
+          "percentage": 9.8,
+          "total_reviews": 41
+        },
+        {
+          "date": "2020-10",
+          "count": 8,
+          "percentage": 16.0,
+          "total_reviews": 50
+        },
+        {
+          "date": "2020-11",
+          "count": 11,
+          "percentage": 23.9,
+          "total_reviews": 46
+        },
+        {
+          "date": "2020-12",
+          "count": 9,
+          "percentage": 6.7,
+          "total_reviews": 134
+        },
+        {
+          "date": "2021-01",
+          "count": 14,
+          "percentage": 21.5,
+          "total_reviews": 65
+        },
+        {
+          "date": "2021-02",
+          "count": 7,
+          "percentage": 13.0,
+          "total_reviews": 54
+        },
+        {
+          "date": "2021-03",
+          "count": 7,
+          "percentage": 11.5,
+          "total_reviews": 61
+        },
+        {
+          "date": "2021-04",
+          "count": 13,
+          "percentage": 18.8,
+          "total_reviews": 69
+        },
+        {
+          "date": "2021-05",
+          "count": 6,
+          "percentage": 16.7,
+          "total_reviews": 36
+        },
+        {
+          "date": "2021-06",
+          "count": 4,
+          "percentage": 10.8,
+          "total_reviews": 37
+        },
+        {
+          "date": "2021-07",
+          "count": 8,
+          "percentage": 25.8,
+          "total_reviews": 31
+        },
+        {
+          "date": "2021-08",
+          "count": 6,
+          "percentage": 22.2,
+          "total_reviews": 27
+        },
+        {
+          "date": "2021-09",
+          "count": 4,
+          "percentage": 12.5,
+          "total_reviews": 32
+        },
+        {
+          "date": "2021-10",
+          "count": 3,
+          "percentage": 8.1,
+          "total_reviews": 37
+        },
+        {
+          "date": "2021-11",
+          "count": 4,
+          "percentage": 10.8,
+          "total_reviews": 37
+        },
+        {
+          "date": "2021-12",
+          "count": 3,
+          "percentage": 3.7,
+          "total_reviews": 81
+        },
+        {
+          "date": "2022-01",
+          "count": 6,
+          "percentage": 11.3,
+          "total_reviews": 53
+        },
+        {
+          "date": "2022-02",
+          "count": 3,
+          "percentage": 9.7,
+          "total_reviews": 31
+        },
+        {
+          "date": "2022-03",
+          "count": 4,
+          "percentage": 7.3,
+          "total_reviews": 55
+        },
+        {
+          "date": "2022-04",
+          "count": 8,
+          "percentage": 11.1,
+          "total_reviews": 72
+        },
+        {
+          "date": "2022-05",
+          "count": 15,
+          "percentage": 14.0,
+          "total_reviews": 107
+        },
+        {
+          "date": "2022-06",
+          "count": 13,
+          "percentage": 8.9,
+          "total_reviews": 146
+        },
+        {
+          "date": "2022-07",
+          "count": 16,
+          "percentage": 9.1,
+          "total_reviews": 176
+        },
+        {
+          "date": "2022-08",
+          "count": 21,
+          "percentage": 12.4,
+          "total_reviews": 170
+        },
+        {
+          "date": "2022-09",
+          "count": 26,
+          "percentage": 14.7,
+          "total_reviews": 177
+        },
+        {
+          "date": "2022-10",
+          "count": 21,
+          "percentage": 9.6,
+          "total_reviews": 218
+        },
+        {
+          "date": "2022-11",
+          "count": 24,
+          "percentage": 14.8,
+          "total_reviews": 162
+        },
+        {
+          "date": "2022-12",
+          "count": 30,
+          "percentage": 13.2,
+          "total_reviews": 227
+        },
+        {
+          "date": "2023-01",
+          "count": 29,
+          "percentage": 11.2,
+          "total_reviews": 258
+        },
+        {
+          "date": "2023-02",
+          "count": 38,
+          "percentage": 17.4,
+          "total_reviews": 218
+        },
+        {
+          "date": "2023-03",
+          "count": 41,
+          "percentage": 17.2,
+          "total_reviews": 238
+        },
+        {
+          "date": "2023-04",
+          "count": 33,
+          "percentage": 11.6,
+          "total_reviews": 285
+        },
+        {
+          "date": "2023-05",
+          "count": 31,
+          "percentage": 11.2,
+          "total_reviews": 276
+        },
+        {
+          "date": "2023-06",
+          "count": 28,
+          "percentage": 10.0,
+          "total_reviews": 280
+        },
+        {
+          "date": "2023-07",
+          "count": 28,
+          "percentage": 7.5,
+          "total_reviews": 371
+        },
+        {
+          "date": "2023-08",
+          "count": 31,
+          "percentage": 9.1,
+          "total_reviews": 341
+        },
+        {
+          "date": "2023-09",
+          "count": 30,
+          "percentage": 14.5,
+          "total_reviews": 207
+        },
+        {
+          "date": "2023-10",
+          "count": 21,
+          "percentage": 9.5,
+          "total_reviews": 222
+        },
+        {
+          "date": "2023-11",
+          "count": 24,
+          "percentage": 14.3,
+          "total_reviews": 168
+        },
+        {
+          "date": "2023-12",
+          "count": 23,
+          "percentage": 14.8,
+          "total_reviews": 155
+        },
+        {
+          "date": "2024-01",
+          "count": 21,
+          "percentage": 11.1,
+          "total_reviews": 189
+        },
+        {
+          "date": "2024-02",
+          "count": 25,
+          "percentage": 14.1,
+          "total_reviews": 177
+        },
+        {
+          "date": "2024-03",
+          "count": 30,
+          "percentage": 18.0,
+          "total_reviews": 167
+        },
+        {
+          "date": "2024-04",
+          "count": 37,
+          "percentage": 16.7,
+          "total_reviews": 222
+        },
+        {
+          "date": "2024-05",
+          "count": 22,
+          "percentage": 10.4,
+          "total_reviews": 211
+        },
+        {
+          "date": "2024-06",
+          "count": 31,
+          "percentage": 13.9,
+          "total_reviews": 223
+        },
+        {
+          "date": "2024-07",
+          "count": 33,
+          "percentage": 13.8,
+          "total_reviews": 239
+        },
+        {
+          "date": "2024-08",
+          "count": 23,
+          "percentage": 9.2,
+          "total_reviews": 249
+        },
+        {
+          "date": "2024-09",
+          "count": 22,
+          "percentage": 16.9,
+          "total_reviews": 130
+        },
+        {
+          "date": "2024-10",
+          "count": 18,
+          "percentage": 11.4,
+          "total_reviews": 158
+        },
+        {
+          "date": "2024-11",
+          "count": 19,
+          "percentage": 13.3,
+          "total_reviews": 143
+        },
+        {
+          "date": "2024-12",
+          "count": 26,
+          "percentage": 12.0,
+          "total_reviews": 216
+        },
+        {
+          "date": "2025-01",
+          "count": 30,
+          "percentage": 12.7,
+          "total_reviews": 237
+        },
+        {
+          "date": "2025-02",
+          "count": 21,
+          "percentage": 11.8,
+          "total_reviews": 178
+        },
+        {
+          "date": "2025-03",
+          "count": 21,
+          "percentage": 10.1,
+          "total_reviews": 207
+        },
+        {
+          "date": "2025-04",
+          "count": 30,
+          "percentage": 11.8,
+          "total_reviews": 254
+        },
+        {
+          "date": "2025-05",
+          "count": 28,
+          "percentage": 13.0,
+          "total_reviews": 216
+        }
+      ]
+    },
+    "premium_visitors": {
+      "label": "Premium Visitors",
+      "raw_persona": "premium_visitors",
+      "total_reviews": 2104,
+      "avg_percentage": 10.8,
+      "peak_month": {
+        "date": "2020-01",
+        "count": 69,
+        "percentage": 13.9
+      },
+      "lowest_month": {
+        "date": "2021-05",
+        "count": 0,
+        "percentage": 0.0
+      },
+      "data": [
+        {
+          "date": "2018-07",
+          "count": 7,
+          "percentage": 15.6,
+          "total_reviews": 45
+        },
+        {
+          "date": "2018-08",
+          "count": 65,
+          "percentage": 13.7,
+          "total_reviews": 476
+        },
+        {
+          "date": "2018-09",
+          "count": 47,
+          "percentage": 13.0,
+          "total_reviews": 361
+        },
+        {
+          "date": "2018-10",
+          "count": 48,
+          "percentage": 12.6,
+          "total_reviews": 381
+        },
+        {
+          "date": "2018-11",
+          "count": 34,
+          "percentage": 9.4,
+          "total_reviews": 361
+        },
+        {
+          "date": "2018-12",
+          "count": 52,
+          "percentage": 11.5,
+          "total_reviews": 452
+        },
+        {
+          "date": "2019-01",
+          "count": 46,
+          "percentage": 9.3,
+          "total_reviews": 494
+        },
+        {
+          "date": "2019-02",
+          "count": 30,
+          "percentage": 9.0,
+          "total_reviews": 332
+        },
+        {
+          "date": "2019-03",
+          "count": 52,
+          "percentage": 12.6,
+          "total_reviews": 414
+        },
+        {
+          "date": "2019-04",
+          "count": 60,
+          "percentage": 13.7,
+          "total_reviews": 438
+        },
+        {
+          "date": "2019-05",
+          "count": 37,
+          "percentage": 8.9,
+          "total_reviews": 416
+        },
+        {
+          "date": "2019-06",
+          "count": 35,
+          "percentage": 9.0,
+          "total_reviews": 391
+        },
+        {
+          "date": "2019-07",
+          "count": 54,
+          "percentage": 11.2,
+          "total_reviews": 483
+        },
+        {
+          "date": "2019-08",
+          "count": 60,
+          "percentage": 12.4,
+          "total_reviews": 484
+        },
+        {
+          "date": "2019-09",
+          "count": 49,
+          "percentage": 16.0,
+          "total_reviews": 306
+        },
+        {
+          "date": "2019-10",
+          "count": 46,
+          "percentage": 11.1,
+          "total_reviews": 415
+        },
+        {
+          "date": "2019-11",
+          "count": 40,
+          "percentage": 11.5,
+          "total_reviews": 348
+        },
+        {
+          "date": "2019-12",
+          "count": 51,
+          "percentage": 13.6,
+          "total_reviews": 374
+        },
+        {
+          "date": "2020-01",
+          "count": 69,
+          "percentage": 13.9,
+          "total_reviews": 496
+        },
+        {
+          "date": "2020-02",
+          "count": 38,
+          "percentage": 11.6,
+          "total_reviews": 328
+        },
+        {
+          "date": "2020-03",
+          "count": 15,
+          "percentage": 10.6,
+          "total_reviews": 141
+        },
+        {
+          "date": "2020-04",
+          "count": 1,
+          "percentage": 5.3,
+          "total_reviews": 19
+        },
+        {
+          "date": "2020-05",
+          "count": 1,
+          "percentage": 4.5,
+          "total_reviews": 22
+        },
+        {
+          "date": "2020-06",
+          "count": 2,
+          "percentage": 10.5,
+          "total_reviews": 19
+        },
+        {
+          "date": "2020-07",
+          "count": 1,
+          "percentage": 4.2,
+          "total_reviews": 24
+        },
+        {
+          "date": "2020-08",
+          "count": 1,
+          "percentage": 2.0,
+          "total_reviews": 49
+        },
+        {
+          "date": "2020-09",
+          "count": 3,
+          "percentage": 7.3,
+          "total_reviews": 41
+        },
+        {
+          "date": "2020-10",
+          "count": 2,
+          "percentage": 4.0,
+          "total_reviews": 50
+        },
+        {
+          "date": "2020-11",
+          "count": 2,
+          "percentage": 4.3,
+          "total_reviews": 46
+        },
+        {
+          "date": "2020-12",
+          "count": 7,
+          "percentage": 5.2,
+          "total_reviews": 134
+        },
+        {
+          "date": "2021-01",
+          "count": 3,
+          "percentage": 4.6,
+          "total_reviews": 65
+        },
+        {
+          "date": "2021-02",
+          "count": 3,
+          "percentage": 5.6,
+          "total_reviews": 54
+        },
+        {
+          "date": "2021-03",
+          "count": 6,
+          "percentage": 9.8,
+          "total_reviews": 61
+        },
+        {
+          "date": "2021-04",
+          "count": 1,
+          "percentage": 1.4,
+          "total_reviews": 69
+        },
+        {
+          "date": "2021-05",
+          "count": 0,
+          "percentage": 0.0,
+          "total_reviews": 36
+        },
+        {
+          "date": "2021-06",
+          "count": 2,
+          "percentage": 5.4,
+          "total_reviews": 37
+        },
+        {
+          "date": "2021-07",
+          "count": 1,
+          "percentage": 3.2,
+          "total_reviews": 31
+        },
+        {
+          "date": "2021-08",
+          "count": 2,
+          "percentage": 7.4,
+          "total_reviews": 27
+        },
+        {
+          "date": "2021-09",
+          "count": 2,
+          "percentage": 6.2,
+          "total_reviews": 32
+        },
+        {
+          "date": "2021-10",
+          "count": 2,
+          "percentage": 5.4,
+          "total_reviews": 37
+        },
+        {
+          "date": "2021-11",
+          "count": 0,
+          "percentage": 0.0,
+          "total_reviews": 37
+        },
+        {
+          "date": "2021-12",
+          "count": 4,
+          "percentage": 4.9,
+          "total_reviews": 81
+        },
+        {
+          "date": "2022-01",
+          "count": 3,
+          "percentage": 5.7,
+          "total_reviews": 53
+        },
+        {
+          "date": "2022-02",
+          "count": 3,
+          "percentage": 9.7,
+          "total_reviews": 31
+        },
+        {
+          "date": "2022-03",
+          "count": 3,
+          "percentage": 5.5,
+          "total_reviews": 55
+        },
+        {
+          "date": "2022-04",
+          "count": 5,
+          "percentage": 6.9,
+          "total_reviews": 72
+        },
+        {
+          "date": "2022-05",
+          "count": 5,
+          "percentage": 4.7,
+          "total_reviews": 107
+        },
+        {
+          "date": "2022-06",
+          "count": 14,
+          "percentage": 9.6,
+          "total_reviews": 146
+        },
+        {
+          "date": "2022-07",
+          "count": 29,
+          "percentage": 16.5,
+          "total_reviews": 176
+        },
+        {
+          "date": "2022-08",
+          "count": 32,
+          "percentage": 18.8,
+          "total_reviews": 170
+        },
+        {
+          "date": "2022-09",
+          "count": 21,
+          "percentage": 11.9,
+          "total_reviews": 177
+        },
+        {
+          "date": "2022-10",
+          "count": 29,
+          "percentage": 13.3,
+          "total_reviews": 218
+        },
+        {
+          "date": "2022-11",
+          "count": 22,
+          "percentage": 13.6,
+          "total_reviews": 162
+        },
+        {
+          "date": "2022-12",
+          "count": 25,
+          "percentage": 11.0,
+          "total_reviews": 227
+        },
+        {
+          "date": "2023-01",
+          "count": 37,
+          "percentage": 14.3,
+          "total_reviews": 258
+        },
+        {
+          "date": "2023-02",
+          "count": 23,
+          "percentage": 10.6,
+          "total_reviews": 218
+        },
+        {
+          "date": "2023-03",
+          "count": 23,
+          "percentage": 9.7,
+          "total_reviews": 238
+        },
+        {
+          "date": "2023-04",
+          "count": 55,
+          "percentage": 19.3,
+          "total_reviews": 285
+        },
+        {
+          "date": "2023-05",
+          "count": 38,
+          "percentage": 13.8,
+          "total_reviews": 276
+        },
+        {
+          "date": "2023-06",
+          "count": 45,
+          "percentage": 16.1,
+          "total_reviews": 280
+        },
+        {
+          "date": "2023-07",
+          "count": 47,
+          "percentage": 12.7,
+          "total_reviews": 371
+        },
+        {
+          "date": "2023-08",
+          "count": 47,
+          "percentage": 13.8,
+          "total_reviews": 341
+        },
+        {
+          "date": "2023-09",
+          "count": 30,
+          "percentage": 14.5,
+          "total_reviews": 207
+        },
+        {
+          "date": "2023-10",
+          "count": 33,
+          "percentage": 14.9,
+          "total_reviews": 222
+        },
+        {
+          "date": "2023-11",
+          "count": 27,
+          "percentage": 16.1,
+          "total_reviews": 168
+        },
+        {
+          "date": "2023-12",
+          "count": 16,
+          "percentage": 10.3,
+          "total_reviews": 155
+        },
+        {
+          "date": "2024-01",
+          "count": 38,
+          "percentage": 20.1,
+          "total_reviews": 189
+        },
+        {
+          "date": "2024-02",
+          "count": 25,
+          "percentage": 14.1,
+          "total_reviews": 177
+        },
+        {
+          "date": "2024-03",
+          "count": 22,
+          "percentage": 13.2,
+          "total_reviews": 167
+        },
+        {
+          "date": "2024-04",
+          "count": 37,
+          "percentage": 16.7,
+          "total_reviews": 222
+        },
+        {
+          "date": "2024-05",
+          "count": 33,
+          "percentage": 15.6,
+          "total_reviews": 211
+        },
+        {
+          "date": "2024-06",
+          "count": 37,
+          "percentage": 16.6,
+          "total_reviews": 223
+        },
+        {
+          "date": "2024-07",
+          "count": 48,
+          "percentage": 20.1,
+          "total_reviews": 239
+        },
+        {
+          "date": "2024-08",
+          "count": 42,
+          "percentage": 16.9,
+          "total_reviews": 249
+        },
+        {
+          "date": "2024-09",
+          "count": 19,
+          "percentage": 14.6,
+          "total_reviews": 130
+        },
+        {
+          "date": "2024-10",
+          "count": 23,
+          "percentage": 14.6,
+          "total_reviews": 158
+        },
+        {
+          "date": "2024-11",
+          "count": 19,
+          "percentage": 13.3,
+          "total_reviews": 143
+        },
+        {
+          "date": "2024-12",
+          "count": 26,
+          "percentage": 12.0,
+          "total_reviews": 216
+        },
+        {
+          "date": "2025-01",
+          "count": 35,
+          "percentage": 14.8,
+          "total_reviews": 237
+        },
+        {
+          "date": "2025-02",
+          "count": 28,
+          "percentage": 15.7,
+          "total_reviews": 178
+        },
+        {
+          "date": "2025-03",
+          "count": 21,
+          "percentage": 10.1,
+          "total_reviews": 207
+        },
+        {
+          "date": "2025-04",
+          "count": 41,
+          "percentage": 16.1,
+          "total_reviews": 254
+        },
+        {
+          "date": "2025-05",
+          "count": 17,
+          "percentage": 7.9,
+          "total_reviews": 216
+        }
+      ]
+    },
+    "thrill_seekers": {
+      "label": "Thrill Seekers",
+      "raw_persona": "thrill_seekers",
+      "total_reviews": 1692,
+      "avg_percentage": 9.5,
+      "peak_month": {
+        "date": "2019-07",
+        "count": 72,
+        "percentage": 14.9
+      },
+      "lowest_month": {
+        "date": "2020-11",
+        "count": 0,
+        "percentage": 0.0
+      },
+      "data": [
+        {
+          "date": "2018-07",
+          "count": 7,
+          "percentage": 15.6,
+          "total_reviews": 45
+        },
+        {
+          "date": "2018-08",
+          "count": 50,
+          "percentage": 10.5,
+          "total_reviews": 476
+        },
+        {
+          "date": "2018-09",
+          "count": 41,
+          "percentage": 11.4,
+          "total_reviews": 361
+        },
+        {
+          "date": "2018-10",
+          "count": 48,
+          "percentage": 12.6,
+          "total_reviews": 381
+        },
+        {
+          "date": "2018-11",
+          "count": 55,
+          "percentage": 15.2,
+          "total_reviews": 361
+        },
+        {
+          "date": "2018-12",
+          "count": 58,
+          "percentage": 12.8,
+          "total_reviews": 452
+        },
+        {
+          "date": "2019-01",
+          "count": 58,
+          "percentage": 11.7,
+          "total_reviews": 494
+        },
+        {
+          "date": "2019-02",
+          "count": 29,
+          "percentage": 8.7,
+          "total_reviews": 332
+        },
+        {
+          "date": "2019-03",
+          "count": 61,
+          "percentage": 14.7,
+          "total_reviews": 414
+        },
+        {
+          "date": "2019-04",
+          "count": 59,
+          "percentage": 13.5,
+          "total_reviews": 438
+        },
+        {
+          "date": "2019-05",
+          "count": 49,
+          "percentage": 11.8,
+          "total_reviews": 416
+        },
+        {
+          "date": "2019-06",
+          "count": 50,
+          "percentage": 12.8,
+          "total_reviews": 391
+        },
+        {
+          "date": "2019-07",
+          "count": 72,
+          "percentage": 14.9,
+          "total_reviews": 483
+        },
+        {
+          "date": "2019-08",
+          "count": 51,
+          "percentage": 10.5,
+          "total_reviews": 484
+        },
+        {
+          "date": "2019-09",
+          "count": 42,
+          "percentage": 13.7,
+          "total_reviews": 306
+        },
+        {
+          "date": "2019-10",
+          "count": 53,
+          "percentage": 12.8,
+          "total_reviews": 415
+        },
+        {
+          "date": "2019-11",
+          "count": 54,
+          "percentage": 15.5,
+          "total_reviews": 348
+        },
+        {
+          "date": "2019-12",
+          "count": 43,
+          "percentage": 11.5,
+          "total_reviews": 374
+        },
+        {
+          "date": "2020-01",
+          "count": 50,
+          "percentage": 10.1,
+          "total_reviews": 496
+        },
+        {
+          "date": "2020-02",
+          "count": 38,
+          "percentage": 11.6,
+          "total_reviews": 328
+        },
+        {
+          "date": "2020-03",
+          "count": 31,
+          "percentage": 22.0,
+          "total_reviews": 141
+        },
+        {
+          "date": "2020-04",
+          "count": 3,
+          "percentage": 15.8,
+          "total_reviews": 19
+        },
+        {
+          "date": "2020-05",
+          "count": 4,
+          "percentage": 18.2,
+          "total_reviews": 22
+        },
+        {
+          "date": "2020-06",
+          "count": 3,
+          "percentage": 15.8,
+          "total_reviews": 19
+        },
+        {
+          "date": "2020-07",
+          "count": 2,
+          "percentage": 8.3,
+          "total_reviews": 24
+        },
+        {
+          "date": "2020-08",
+          "count": 8,
+          "percentage": 16.3,
+          "total_reviews": 49
+        },
+        {
+          "date": "2020-09",
+          "count": 3,
+          "percentage": 7.3,
+          "total_reviews": 41
+        },
+        {
+          "date": "2020-10",
+          "count": 5,
+          "percentage": 10.0,
+          "total_reviews": 50
+        },
+        {
+          "date": "2020-11",
+          "count": 0,
+          "percentage": 0.0,
+          "total_reviews": 46
+        },
+        {
+          "date": "2020-12",
+          "count": 7,
+          "percentage": 5.2,
+          "total_reviews": 134
+        },
+        {
+          "date": "2021-01",
+          "count": 5,
+          "percentage": 7.7,
+          "total_reviews": 65
+        },
+        {
+          "date": "2021-02",
+          "count": 4,
+          "percentage": 7.4,
+          "total_reviews": 54
+        },
+        {
+          "date": "2021-03",
+          "count": 2,
+          "percentage": 3.3,
+          "total_reviews": 61
+        },
+        {
+          "date": "2021-04",
+          "count": 7,
+          "percentage": 10.1,
+          "total_reviews": 69
+        },
+        {
+          "date": "2021-05",
+          "count": 4,
+          "percentage": 11.1,
+          "total_reviews": 36
+        },
+        {
+          "date": "2021-06",
+          "count": 5,
+          "percentage": 13.5,
+          "total_reviews": 37
+        },
+        {
+          "date": "2021-07",
+          "count": 1,
+          "percentage": 3.2,
+          "total_reviews": 31
+        },
+        {
+          "date": "2021-08",
+          "count": 2,
+          "percentage": 7.4,
+          "total_reviews": 27
+        },
+        {
+          "date": "2021-09",
+          "count": 2,
+          "percentage": 6.2,
+          "total_reviews": 32
+        },
+        {
+          "date": "2021-10",
+          "count": 4,
+          "percentage": 10.8,
+          "total_reviews": 37
+        },
+        {
+          "date": "2021-11",
+          "count": 4,
+          "percentage": 10.8,
+          "total_reviews": 37
+        },
+        {
+          "date": "2021-12",
+          "count": 3,
+          "percentage": 3.7,
+          "total_reviews": 81
+        },
+        {
+          "date": "2022-01",
+          "count": 4,
+          "percentage": 7.5,
+          "total_reviews": 53
+        },
+        {
+          "date": "2022-02",
+          "count": 2,
+          "percentage": 6.5,
+          "total_reviews": 31
+        },
+        {
+          "date": "2022-03",
+          "count": 3,
+          "percentage": 5.5,
+          "total_reviews": 55
+        },
+        {
+          "date": "2022-04",
+          "count": 3,
+          "percentage": 4.2,
+          "total_reviews": 72
+        },
+        {
+          "date": "2022-05",
+          "count": 17,
+          "percentage": 15.9,
+          "total_reviews": 107
+        },
+        {
+          "date": "2022-06",
+          "count": 15,
+          "percentage": 10.3,
+          "total_reviews": 146
+        },
+        {
+          "date": "2022-07",
+          "count": 15,
+          "percentage": 8.5,
+          "total_reviews": 176
+        },
+        {
+          "date": "2022-08",
+          "count": 8,
+          "percentage": 4.7,
+          "total_reviews": 170
+        },
+        {
+          "date": "2022-09",
+          "count": 22,
+          "percentage": 12.4,
+          "total_reviews": 177
+        },
+        {
+          "date": "2022-10",
+          "count": 17,
+          "percentage": 7.8,
+          "total_reviews": 218
+        },
+        {
+          "date": "2022-11",
+          "count": 10,
+          "percentage": 6.2,
+          "total_reviews": 162
+        },
+        {
+          "date": "2022-12",
+          "count": 12,
+          "percentage": 5.3,
+          "total_reviews": 227
+        },
+        {
+          "date": "2023-01",
+          "count": 19,
+          "percentage": 7.4,
+          "total_reviews": 258
+        },
+        {
+          "date": "2023-02",
+          "count": 18,
+          "percentage": 8.3,
+          "total_reviews": 218
+        },
+        {
+          "date": "2023-03",
+          "count": 24,
+          "percentage": 10.1,
+          "total_reviews": 238
+        },
+        {
+          "date": "2023-04",
+          "count": 16,
+          "percentage": 5.6,
+          "total_reviews": 285
+        },
+        {
+          "date": "2023-05",
+          "count": 20,
+          "percentage": 7.2,
+          "total_reviews": 276
+        },
+        {
+          "date": "2023-06",
+          "count": 24,
+          "percentage": 8.6,
+          "total_reviews": 280
+        },
+        {
+          "date": "2023-07",
+          "count": 16,
+          "percentage": 4.3,
+          "total_reviews": 371
+        },
+        {
+          "date": "2023-08",
+          "count": 18,
+          "percentage": 5.3,
+          "total_reviews": 341
+        },
+        {
+          "date": "2023-09",
+          "count": 18,
+          "percentage": 8.7,
+          "total_reviews": 207
+        },
+        {
+          "date": "2023-10",
+          "count": 13,
+          "percentage": 5.9,
+          "total_reviews": 222
+        },
+        {
+          "date": "2023-11",
+          "count": 18,
+          "percentage": 10.7,
+          "total_reviews": 168
+        },
+        {
+          "date": "2023-12",
+          "count": 25,
+          "percentage": 16.1,
+          "total_reviews": 155
+        },
+        {
+          "date": "2024-01",
+          "count": 17,
+          "percentage": 9.0,
+          "total_reviews": 189
+        },
+        {
+          "date": "2024-02",
+          "count": 14,
+          "percentage": 7.9,
+          "total_reviews": 177
+        },
+        {
+          "date": "2024-03",
+          "count": 22,
+          "percentage": 13.2,
+          "total_reviews": 167
+        },
+        {
+          "date": "2024-04",
+          "count": 11,
+          "percentage": 5.0,
+          "total_reviews": 222
+        },
+        {
+          "date": "2024-05",
+          "count": 23,
+          "percentage": 10.9,
+          "total_reviews": 211
+        },
+        {
+          "date": "2024-06",
+          "count": 18,
+          "percentage": 8.1,
+          "total_reviews": 223
+        },
+        {
+          "date": "2024-07",
+          "count": 16,
+          "percentage": 6.7,
+          "total_reviews": 239
+        },
+        {
+          "date": "2024-08",
+          "count": 6,
+          "percentage": 2.4,
+          "total_reviews": 249
+        },
+        {
+          "date": "2024-09",
+          "count": 11,
+          "percentage": 8.5,
+          "total_reviews": 130
+        },
+        {
+          "date": "2024-10",
+          "count": 10,
+          "percentage": 6.3,
+          "total_reviews": 158
+        },
+        {
+          "date": "2024-11",
+          "count": 15,
+          "percentage": 10.5,
+          "total_reviews": 143
+        },
+        {
+          "date": "2024-12",
+          "count": 16,
+          "percentage": 7.4,
+          "total_reviews": 216
+        },
+        {
+          "date": "2025-01",
+          "count": 20,
+          "percentage": 8.4,
+          "total_reviews": 237
+        },
+        {
+          "date": "2025-02",
+          "count": 9,
+          "percentage": 5.1,
+          "total_reviews": 178
+        },
+        {
+          "date": "2025-03",
+          "count": 17,
+          "percentage": 8.2,
+          "total_reviews": 207
+        },
+        {
+          "date": "2025-04",
+          "count": 18,
+          "percentage": 7.1,
+          "total_reviews": 254
+        },
+        {
+          "date": "2025-05",
+          "count": 15,
+          "percentage": 6.9,
+          "total_reviews": 216
+        }
+      ]
+    }
+  }
+}

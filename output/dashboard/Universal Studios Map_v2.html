@@ -1,0 +1,2277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Universal Studios Singapore</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base styles for both tabs */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .navbar {
+            background-color: #1f1f1f;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #ccc;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .nav-links a.active {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            height: calc(100vh - 60px);
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Map styles */
+        .map-container {
+            position: relative;
+            width: 100%;
+            max-width: 1550px;
+            margin: 5px auto;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        .map-container img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+        }
+
+        .label,.label-small, .express-box {
+            position: absolute;
+            cursor: move;
+        }
+
+        .label {
+            background: rgba(30, 30, 30, 0.65);
+            color: #f1f1f1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7), 0 0 10px rgba(255, 255, 255, 0.05);
+            max-width: 240px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .label:hover {
+            transform: scale(1.04);
+            background-color: rgba(60, 60, 60, 0.75);
+        }
+        
+
+        .label-small {
+            background: rgba(30, 30, 30, 0.65);
+            color: #f1f1f1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 4px 10px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), 0 0 8px rgba(255, 255, 255, 0.05);
+            max-width: 200px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .label-small:hover {
+            transform: scale(1.04);
+            background-color: rgba(60, 60, 60, 0.75);
+        }
+
+        .progress-container {
+            flex: 1;
+            height: 14px;
+            background-color: #555;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #00c853, #64dd17);
+            border-radius: 8px;
+            text-align: right;
+            padding-right: 5px;
+            color: white;
+            font-size: 11px;
+            line-height: 14px;
+            font-weight: bold;
+        }
+
+        img.icon {
+            width: 28px;
+            vertical-align: middle;
+            border-radius: 50%;
+        }
+
+        .express-box {
+            width:230px;
+            background: rgba(40, 40, 40, 0.65);
+            color: #e0e0e0;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 16px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow:
+                0 8px 24px rgba(0, 0, 0, 0.6),
+                0 0 12px rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            max-width: 230px;
+            text-align: center;
+        }
+
+        .express-box:hover {
+            transform: scale(1.03);
+            background: rgba(60, 60, 60, 0.7);
+        }
+
+        .express-title {
+            background: rgba(80, 80, 80, 0.6);
+            color: #ffffff;
+            font-weight: bold;
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin: -16px -20px 16px -20px;
+            font-size: 16px;
+            box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.1);
+        }
+
+        .express-logo {
+            max-width: 90%;
+            height: auto;
+            margin: 12px auto;
+            display: block;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .express-text {
+            font-size: 13px;
+            line-height: 1.5;
+            margin: 0;
+            color: #cccccc;
+        }
+
+        /* Dashboard styles */
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            min-height: 450px;
+        }
+
+        .button-container {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .back-button, .sentiment-toggle-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .back-button:hover, .sentiment-toggle-button:hover {
+            background: #2980b9;
+            transform: translateY(-1px);
+        }
+
+        .sentiment-toggle-button {
+            background: #e74c3c;
+        }
+
+        .sentiment-toggle-button:hover {
+            background: #c0392b;
+        }
+
+        .sentiment-toggle-button.active {
+            background: #27ae60;
+        }
+
+        .sentiment-toggle-button.active:hover {
+            background: #229954;
+        }
+
+        .persona-icons {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+            transition: opacity 0.3s ease;
+        }
+
+        .persona-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            opacity: 0.7;
+            min-width: 60px;
+        }
+
+        .persona-icon:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .persona-icon.active {
+            opacity: 1;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .persona-icon i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .persona-icon span {
+            font-size: 10px;
+            text-align: center;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        .chart-container { 
+            width: 100%; 
+            height: 350px; 
+            margin: 0 auto;
+            position: relative;
+            transition: all 0.5s ease;
+            margin-top: 40px;
+        }
+
+        .pie-container {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+        .trend-container {
+            width: 100%;
+            height: 400px;
+        }
+
+        .chart-title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 40px;
+        }
+
+        .chart-subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .trend-stats {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 8px;
+            font-size: 12px;
+            color: #2c3e50;
+        }
+
+        .trend-stats.show {
+            display: block;
+        }
+
+        .loading {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .error-message {
+            text-align: center;
+            color: #e74c3c;
+            background: rgba(231, 76, 60, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .file-input-container {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 8px;
+            border: 2px dashed #3498db;
+        }
+
+        .file-input {
+            margin: 10px;
+            padding: 8px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            background: white;
+        }
+
+        .load-button {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .load-button:hover {
+            background: #229954;
+        }
+
+        .load-button:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+        }
+        
+        /* Sentiment tooltip styles */
+        .sentiment-tooltip {
+            position: absolute;
+            background: rgba(44, 62, 80, 0.95);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            min-width: 200px;
+            display: none;
+        }
+        
+        .sentiment-distribution {
+            margin-top: 8px;
+        }
+        
+        .sentiment-bar {
+            display: flex;
+            align-items: center;
+            margin: 2px 0;
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 3px;
+            transition: background-color 0.2s ease;
+        }
+        
+        .sentiment-bar:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sentiment-bar-fill {
+            height: 12px;
+            border-radius: 2px;
+            margin: 0 8px;
+            min-width: 2px;
+        }
+        
+        .sentiment-negative { background: linear-gradient(90deg, #e74c3c, #c0392b); }
+        .sentiment-neutral { background: linear-gradient(90deg, #f39c12, #e67e22); }
+        .sentiment-positive { background: linear-gradient(90deg, #27ae60, #229954); }
+        
+        /* Review modal styles */
+        .review-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+        
+        .review-modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 12px;
+            width: 80%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .review-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        
+        .review-modal-title {
+            color: #2c3e50;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #7f8c8d;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        
+        .modal-close:hover {
+            color: #e74c3c;
+        }
+        
+        .review-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 10px 0;
+            border-left: 4px solid #3498db;
+        }
+        
+        .review-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 11px;
+            color: #7f8c8d;
+        }
+        
+        .review-confidence {
+            background: #3498db;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+        
+        .review-text {
+            color: #2c3e50;
+            font-size: 13px;
+            line-height: 1.4;
+            margin: 0;
+        }
+        
+        .year-filter {
+            display: none;
+            text-align: center;
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .year-filter.show {
+            display: block;
+        }
+        .year-filter-title {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        .year-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+        .year-btn {
+            background: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            color: #2c3e50;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.2s ease;
+            min-width: 35px;
+        }
+        .year-btn:hover {
+            background: #d5dbdb;
+        }
+        .year-btn.active {
+            background: #3498db;
+            color: white;
+            border-color: #2980b9;
+        }
+        .year-range-info {
+            font-size: 10px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        .quick-filters {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .quick-filter-btn {
+            background: #95a5a6;
+            color: white;
+            border: none;
+            padding: 3px 8px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 10px;
+            transition: all 0.2s ease;
+        }
+        .quick-filter-btn:hover {
+            background: #7f8c8d;
+        }
+        .quick-filter-btn.active {
+            background: #e74c3c;
+        }
+
+        /* API Configuration Modal */
+        .config-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .config-content {
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+        }
+
+        .config-content h2 {
+            margin-top: 0;
+            color: #fff;
+            text-align: center;
+        }
+
+        .config-content input, .config-content textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: white;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .config-content button {
+            width: 100%;
+            padding: 12px;
+            background: #00c853;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .config-content button:hover {
+            background: #00a843;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 8px 12px;
+            background: rgba(40,40,40,0.8);
+            border-radius: 12px;
+            margin: 8px 0;
+            font-style: italic;
+            color: #888;
+        }
+
+        .message {
+            margin: 8px 0;
+            padding: 8px 12px;
+            border-radius: 12px;
+            line-height: 1.4;
+        }
+
+        .user-message {
+            background: #00c853;
+            color: white;
+            margin-left: 20px;
+            text-align: right;
+        }
+
+        .bot-message {
+            background: rgba(40,40,40,0.8);
+            color: #e0e0e0;
+            margin-right: 20px;
+        }
+
+        .error-message {
+            background: rgba(220,53,69,0.2);
+            color: #ff6b7a;
+            border: 1px solid rgba(220,53,69,0.3);
+        }
+
+        /* Position Controls */
+        .position-controls {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            display: flex;
+            gap: 10px;
+            z-index: 9998;
+        }
+
+        .position-controls button {
+            background: #00c853;
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            transition: background 0.3s;
+        }
+
+        .position-controls button:hover {
+            background: #00a843;
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        /* Chatbot Button */
+        #chatbot-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 120px;
+            height: 120px;
+            background-color: #222;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+            cursor: pointer;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        /* Chatbot Window */
+        #chatbot-window {
+            position: fixed;
+            bottom: 160px;
+            right: 30px;
+            width: 380px;
+            height: 500px;
+            background: rgba(30, 30, 30, 0.95);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            display: none;
+            flex-direction: column;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        /* Dashboard tab background */
+        #dashboard-tab {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: calc(100vh - 60px);
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- API Configuration Modal -->
+    <div id="config-modal" class="config-modal">
+        <div class="config-content">
+            <h2>🤖 ChatGPT Configuration</h2>
+            <label for="api-key" style="color: #ccc; display: block; margin-bottom: 5px;">OpenAI API Key:</label>
+            <input type="password" id="api-key" placeholder="sk-..." />
+            
+            <label for="system-prompt" style="color: #ccc; display: block; margin-bottom: 5px; margin-top: 15px;">System Instructions:</label>
+            <textarea id="system-prompt" rows="6" placeholder="You are a helpful assistant for Universal Studios Singapore...">You are a helpful assistant for Universal Studios Singapore. You help visitors with information about attractions, dining, shows, tickets, and general park information. Be friendly, informative, and concise. Use the context of USS (Universal Studios Singapore) in your responses.</textarea>
+            
+            <label style="color: #ccc; display: block; margin-bottom: 5px; margin-top: 15px;">Load Knowledge Base (JSON):</label>
+            <input type="file" id="knowledge-file" accept=".json" onchange="loadKnowledgeBase(event)" style="background: #1a1a1a; border: 1px solid #444; color: white; padding: 10px; width: 100%; box-sizing: border-box; border-radius: 6px;">
+            <p style="font-size: 12px; color: #888; margin: 5px 0;">Optional: Upload a JSON file with additional USS information</p>
+            
+            <button onclick="saveConfig()">Save & Start Chatting</button>
+            <p style="font-size: 12px; color: #888; text-align: center; margin-top: 15px;">
+                Your API key is stored locally and never shared.
+            </p>
+        </div>
+    </div>
+
+    <!-- NAVIGATION BAR -->
+    <div class="navbar">
+        <h1>Universal Studios Singapore</h1>
+        <div class="nav-links">
+            <a href="#" onclick="showTab('map')" class="active">Park Map</a>
+            <a href="#" onclick="showTab('dashboard')">Persona Analytics</a>
+            <a href="#">Facilities</a>
+            <a href="#">Tickets</a>
+            <a href="#" onclick="showConfig()">⚙️ Bot Settings</a>
+        </div>
+    </div>
+
+    <!-- MAP TAB -->
+    <div id="map-tab" class="tab-content active">
+        <div class="map-container" id="map">
+            <img src="map/uss-park-map-3840x2160-en.png" alt="USS Map">
+
+            <!-- Google Rating Overlay -->
+            <div class="label" id="google-rating" style="left: 50%; top: 10px; transform: translateX(-50%); max-width: 300px;">
+                ⭐ Google Reviews: 4.6 / 5.0<br>
+                <span style="font-size: 13px; color: #ccc;">(103,000+ reviews)</span>
+            </div>
+
+            <!-- Minions Ride -->
+            <div class="label" id="minionsRide" style="left:280px; top:400px;">
+                Minion Land<br>
+                0.52 <img src="resources/happy.gif" class="icon" alt="Angry">
+            </div>
+
+            <!-- Express Ticket -->
+            <div class="label" id="tickets" style="left:730px; top:110px;">
+                <div>Express Ticket Rating:</div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width:75%;">75%</div>
+                    </div>
+                    <img src="resources/up.gif" class="icon" alt="Thumbs up">
+                </div>
+            </div>
+
+            <!-- Disclaimer Box -->
+            <div class="express-box" id="disclaimer" style="top: 450px; left: 1050px;">
+                <div class="express-title">DISCLAIMER</div>
+                <img src="resources/smu-logo.jpg" class="express-logo">
+                <p class="express-text">
+                    This is a student project for 
+                    Singapore Management University (SMU) <br>
+                    All content is for educational purposes only.
+                </p>
+            </div>
+            
+            <div class="express-box" id="complaints" style="top: 150px; left: 1050px;">
+                <div class="express-title">Top Complaints Phrases:</div>
+                <div style="text-align: left; font-size: 15px; line-height: 1.6;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span><img src="resources/complaints/theme-park.png" style="width: 16px; vertical-align: middle; margin-right: 6px;">A Small Theme Park</span><span>122</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span><img src="resources/complaints/queue.png" style="width: 16px; vertical-align: middle; margin-right: 6px;">Endless Queuing</span><span>55</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span><img src="resources/complaints/bad.png" style="width: 16px; vertical-align: middle; margin-right: 6px;">Ridiculous Rides</span><span>59</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span><img src="resources/complaints/staff.png" style="width: 16px; vertical-align: middle; margin-right: 6px;">Inadequate Staff</span><span>50</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span><img src="resources/complaints/best-price.png" style="width: 16px; vertical-align: middle; margin-right: 6px;">An Insulting Price</span><span>42</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span><img src="resources/complaints/people.png" style="width: 16px; vertical-align: middle; margin-right: 6px;">The Intense Crowding</span><span>23</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span><img src="resources/complaints/toilet.png" style="width: 16px; vertical-align: middle; margin-right: 6px;">The filthy toilets</span><span>12</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span><img src="resources/complaints/fast-food.png" style="width: 16px; vertical-align: middle; margin-right: 6px;">Limited food venue</span><span>18</span>
+                    </div>
+                </div>
+            </div>
+			
+			<div class="label-small" id="0-1" style="left:280px; top:400px;">
+				<img src="resources/clock.png" class="icon" alt="Thumbs up">
+                52 mins
+            </div>
+			<div class="label-small" id="0-2" style="left:280px; top:400px;">
+				<img src="resources/clock.png" class="icon" alt="Thumbs up">
+                50 mins
+            </div>
+			<div class="label-small" id="0-3" style="left:280px; top:400px;">
+				<img src="resources/clock.png" class="icon" alt="Thumbs up">
+                49 mins
+            </div>
+			<div class="label-small" id="0-4" style="left:280px; top:400px;">
+				<img src="resources/clock.png" class="icon" alt="Thumbs up">
+                50 mins
+            </div>
+			<div class="label-small" id="0-5" style="left:280px; top:400px;">
+				<img src="resources/clock.png" class="icon" alt="Thumbs up">
+                43 mins
+            </div>
+			<div class="label-small" id="0-6" style="left:280px; top:400px;">
+				<img src="resources/clock.png" class="icon" alt="Thumbs up">
+                46 mins
+            </div>
+
+
+            <!-- real-->
+            <div class="label-small" id="1-1" style="left:280px; top:400px;">
+                0.88 
+                <img src="resources/star.gif" class="icon" alt="Thumbs up">
+                <img src="resources/star.gif" class="icon" alt="Thumbs up">
+                <img src="resources/star.gif" class="icon" alt="Thumbs up">
+            </div>
+            <div class="label-small" id="1-2" style="left:280px; top:400px;">
+                0.86
+                <img src="resources/star.gif" class="icon" alt="Thumbs up">
+                <img src="resources/star.gif" class="icon" alt="Thumbs up">
+                <img src="resources/star.gif" class="icon" alt="Thumbs up">
+            </div>
+            <div class="label-small" id="1-3" style="left:280px; top:400px;">
+                0.82 
+                <img src="resources/star.gif" class="icon" alt="Thumbs up">
+                <img src="resources/star.gif" class="icon" alt="Thumbs up">
+                <img src="resources/star.gif" class="icon" alt="Thumbs up">
+            </div>
+            <div class="label-small" id="1-4" style="left:280px; top:400px;">
+                0.81 
+                <img src="resources/star.gif" class="icon" alt="Thumbs up">
+                <img src="resources/star.gif" class="icon" alt="Thumbs up">
+            </div>
+            <div class="label-small" id="1-5" style="left:280px; top:400px;">
+                0.81 
+                <img src="resources/star.gif" class="icon" alt="Thumbs up">
+                <img src="resources/star.gif" class="icon" alt="Thumbs up">
+            </div>
+            <div class="label-small" id="1-6" style="left:280px; top:400px;">
+                0.81
+                <img src="resources/star.gif" class="icon" alt="Thumbs up">
+                <img src="resources/star.gif" class="icon" alt="Thumbs up">
+            </div>
+            
+            <div class="label-small" id="2-1" style="left:280px; top:400px;">
+                0.86
+                <img src="resources/popcorn.gif" class="icon" alt="Thumbs up">
+                <img src="resources/popcorn.gif" class="icon" alt="Thumbs up">
+                <img src="resources/popcorn.gif" class="icon" alt="Thumbs up">
+            </div>
+            <div class="label-small" id="2-2" style="left:280px; top:400px;">
+                0.85
+                <img src="resources/popcorn.gif" class="icon" alt="Thumbs up">
+                <img src="resources/popcorn.gif" class="icon" alt="Thumbs up">
+                <img src="resources/popcorn.gif" class="icon" alt="Thumbs up">
+            </div>
+            <div class="label-small" id="2-3" style="left:280px; top:400px;">
+                0.85
+                <img src="resources/popcorn.gif" class="icon" alt="Thumbs up">
+                <img src="resources/popcorn.gif" class="icon" alt="Thumbs up">
+                <img src="resources/popcorn.gif" class="icon" alt="Thumbs up">
+            </div>
+            <div class="label-small" id="2-4" style="left:280px; top:400px;">
+                0.83
+                <img src="resources/popcorn.gif" class="icon" alt="Thumbs up">
+                <img src="resources/popcorn.gif" class="icon" alt="Thumbs up">
+            </div>
+
+            <div class="label" id="3-1" style="left:450px; top:300px;">
+                Jungle Bites <br>
+                0.99 
+                <img src="resources/food.gif" class="icon" alt="Lovely">
+                <img src="resources/food.gif" class="icon" alt="Lovely">
+                <img src="resources/food.gif" class="icon" alt="Lovely">
+            </div>
+            <div class="label" id="3-2" style="left:450px; top:300px;">
+                Planet Yen <br>
+                0.91
+                <img src="resources/food.gif" class="icon" alt="Lovely">
+                <img src="resources/food.gif" class="icon" alt="Lovely">
+                <img src="resources/food.gif" class="icon" alt="Lovely">
+            </div>
+            <div class="label" id="3-3" style="left:450px; top:300px;">
+                Discovery Food Court <br>
+                0.90 
+                <img src="resources/food.gif" class="icon" alt="Lovely">
+                <img src="resources/food.gif" class="icon" alt="Lovely">
+                <img src="resources/food.gif" class="icon" alt="Lovely">
+            </div>
+            <div class="label" id="3-4" style="left:450px; top:300px;">
+                Friar's Good Food <br>
+                0.81
+                <img src="resources/food.gif" class="icon" alt="Lovely">
+                <img src="resources/food.gif" class="icon" alt="Lovely">
+            </div>
+            <div class="label" id="3-5" style="left:450px; top:300px;">
+                Super Hungry Food Stand <br>
+                0.79
+                <img src="resources/food.gif" class="icon" alt="Lovely">
+                <img src="resources/food.gif" class="icon" alt="Lovely">
+            </div>
+            <div class="label" id="3-6" style="left:450px; top:300px;">
+                KT's Grill <br>
+                0.79
+                <img src="resources/food.gif" class="icon" alt="Lovely">
+                <img src="resources/food.gif" class="icon" alt="Lovely">
+            </div>
+            <div class="label" id="3-7" style="left:450px; top:300px;">
+                Mel's Drive-in <br>
+                0.75
+                <img src="resources/food.gif" class="icon" alt="Lovely">
+            </div>
+            <div class="label" id="3-8" style="left:450px; top:300px;">
+                Me Want Cookie! <br>
+                0.73
+                <img src="resources/food.gif" class="icon" alt="Lovely">
+            </div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD TAB -->
+    <div id="dashboard-tab" class="tab-content">
+        <div class="dashboard-card">
+            <div class="button-container">
+                <button class="back-button" id="backButton" onclick="showPieChart()">
+                    <i class="fas fa-arrow-left"></i> Back to Overview
+                </button>
+                <button class="sentiment-toggle-button" id="sentimentToggleButton" onclick="toggleSentimentView()">
+                    <i class="fas fa-heart"></i> <span id="sentimentToggleText">Show Sentiment</span>
+                </button>
+            </div>
+            
+            <h2 class="chart-title" id="chartTitle">USS Persona Interactive Dashboard</h2>
+            <p class="chart-subtitle" id="chartSubtitle">Load your JSON data files to get started</p>
+            
+            <!-- File input section -->
+            <div class="file-input-container" id="fileInputContainer">
+                <h3>Load Data Files</h3>
+                <p>Select your JSON data files from the same folder as this HTML file:</p>
+                <div>
+                    <label for="pieDataFile">Pie Chart Data:</label>
+                    <input type="file" id="pieDataFile" class="file-input" accept=".json" />
+                </div>
+                <div>
+                    <label for="integratedDataFile">Integrated Data:</label>
+                    <input type="file" id="integratedDataFile" class="file-input" accept=".json" />
+                </div>
+                <button class="load-button" onclick="loadDataFiles()" id="loadButton">Load Dashboard</button>
+                <p style="font-size: 12px; color: #7f8c8d; margin-top: 10px;">
+                    Expected files:<br>
+                    • persona_distribution_pie_chart_threshold_0.5_with_sentiment.json<br>
+                    • integrated_persona_analysis_threshold_0.5_with_sentiment.json
+                </p>
+            </div>
+            
+            <div class="persona-icons" id="personaIcons" style="display: none;"></div>
+            
+            <div class="chart-container" id="chartContainer" style="display: none;">
+                <canvas id="mainChart"></canvas>
+            </div>
+            
+            <div class="year-filter" id="yearFilter">
+                <div class="year-filter-title">Select Years to Display</div>
+                <div class="year-buttons" id="yearButtons"></div>
+                <div class="quick-filters">
+                    <button class="quick-filter-btn" onclick="selectQuickFilter('recent3')">Last 3 Years</button>
+                    <button class="quick-filter-btn" onclick="selectQuickFilter('recent5')">Last 5 Years</button>
+                    <button class="quick-filter-btn active" onclick="selectQuickFilter('all')">All Years</button>
+                    <button class="quick-filter-btn" onclick="selectQuickFilter('clear')">Clear All</button>
+                </div>
+                <div class="year-range-info" id="yearRangeInfo"></div>
+            </div>
+            
+            <div class="trend-stats" id="trendStats"></div>
+        </div>
+
+        <div class="sentiment-tooltip" id="sentimentTooltip"></div>
+
+        <div class="review-modal" id="reviewModal">
+            <div class="review-modal-content">
+                <div class="review-modal-header">
+                    <h3 class="review-modal-title" id="reviewModalTitle">Reviews</h3>
+                    <button class="modal-close" onclick="closeReviewModal()">&times;</button>
+                </div>
+                <div id="reviewModalContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot Toggle -->
+    <div id="chatbot-toggle">
+        <img src="resources/chatbot.png" alt="Chat" style="width: 64px; height: 64px;">
+    </div>
+
+    <!-- Chatbot Window -->
+    <div id="chatbot-window">
+        <div style="padding: 15px; background: rgba(40,40,40,0.9); font-weight: bold; font-size: 16px; display: flex; justify-content: space-between; align-items: center;">
+            <span>🎢 USS ChatGPT Assistant</span>
+            <button onclick="clearChat()" style="background: none; border: none; color: #888; cursor: pointer; font-size: 18px;">🗑️</button>
+        </div>
+        <div id="chat-messages" style="flex: 1; padding: 15px; overflow-y: auto; font-size: 14px; color: #ccc;"></div>
+        <div class="typing-indicator" id="typing-indicator">AI is typing...</div>
+        <div style="padding: 15px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; gap: 10px;">
+            <input id="chat-input" type="text" placeholder="Ask about USS attractions, dining, tickets..." style="flex: 1; padding: 10px; background: #1a1a1a; border: 1px solid #444; color: white; border-radius: 8px; font-size: 14px;">
+            <button id="chat-send" style="background: #00c853; border: none; color: white; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold;">Send</button>
+        </div>
+    </div>
+
+    <!-- Position Save/Load Controls -->
+    <div class="position-controls">
+        <button onclick="savePositions()">💾 Save Positions</button>
+        <button onclick="document.getElementById('file-input').click()">📁 Load Positions</button>
+        <input type="file" id="file-input" accept=".json" onchange="loadPositionsFromFile(event)">
+    </div>
+
+    <script>
+        // Tab management
+        function showTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected tab and mark nav link as active
+            document.getElementById(`${tabId}-tab`).classList.add('active');
+            document.querySelector(`.nav-links a[onclick="showTab('${tabId}')"]`).classList.add('active');
+        }
+
+        // Dashboard functionality
+        const personaConfig = {
+            'experience_focused': { icon: 'fas fa-star', color: '#FF6B9D', label: 'Experience Focused' },
+            'families': { icon: 'fas fa-users', color: '#45B7D1', label: 'Families' },
+            'international_tourists': { icon: 'fas fa-globe', color: '#4ECDC4', label: 'International Tourists' },
+            'premium_visitors': { icon: 'fas fa-crown', color: '#96CEB4', label: 'Premium Visitors' },
+            'thrill_seekers': { icon: 'fas fa-bolt', color: '#DDA0DD', label: 'Thrill Seekers' },
+            'budget_conscious': { icon: 'fas fa-piggy-bank', color: '#FFEAA7', label: 'Budget Conscious' }
+        };
+
+        const sentimentConfig = {
+            0: { label: 'Negative', color: '#e74c3c', icon: '😞' },
+            1: { label: 'Neutral', color: '#f39c12', icon: '😐' },
+            2: { label: 'Positive', color: '#27ae60', icon: '😊' }
+        };
+
+        let currentChart = null;
+        let pieData = null;
+        let integratedData = null;
+        let currentView = 'pie';
+        let currentPersona = null;
+        let showingSentiment = false;
+        let selectedYears = new Set();
+        let availableYears = [];
+
+        function showError(message) {
+            const chartContainer = document.getElementById('chartContainer');
+            chartContainer.innerHTML = `<div class="error-message">${message}</div>`;
+            chartContainer.style.display = 'block';
+            document.getElementById('loadButton').disabled = false;
+        }
+
+        function hideFileInput() {
+            document.getElementById('fileInputContainer').style.display = 'none';
+        }
+
+        function showFileInput() {
+            document.getElementById('fileInputContainer').style.display = 'block';
+            document.getElementById('chartContainer').style.display = 'none';
+            document.getElementById('personaIcons').style.display = 'none';
+        }
+
+        async function loadDataFiles() {
+            const pieFileInput = document.getElementById('pieDataFile');
+            const integratedFileInput = document.getElementById('integratedDataFile');
+            
+            if (!pieFileInput.files[0] || !integratedFileInput.files[0]) {
+                alert('Please select both JSON files before loading.');
+                return;
+            }
+            
+            try {
+                document.getElementById('loadButton').disabled = true;
+                document.getElementById('loadButton').textContent = 'Loading...';
+                document.getElementById('chartTitle').textContent = 'Loading...';
+                document.getElementById('chartSubtitle').textContent = 'Please wait while we load your data...';
+                
+                // Read pie data file
+                const pieFile = pieFileInput.files[0];
+                const pieText = await readFileAsText(pieFile);
+                pieData = JSON.parse(pieText);
+                
+                // Read integrated data file
+                const integratedFile = integratedFileInput.files[0];
+                const integratedText = await readFileAsText(integratedFile);
+                integratedData = JSON.parse(integratedText);
+                
+                console.log('Data loaded successfully from files');
+                console.log('Pie data:', pieData);
+                console.log('Integrated data keys:', Object.keys(integratedData));
+                
+                hideFileInput();
+                extractAvailableYears();
+                selectedYears = new Set(availableYears);
+                showPieChart();
+                
+            } catch (error) {
+                console.error('Error loading data files:', error);
+                showError(`Error loading data files: ${error.message}. Please check that your JSON files are valid.`);
+                document.getElementById('loadButton').textContent = 'Load Dashboard';
+            }
+        }
+
+        function readFileAsText(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => resolve(e.target.result);
+                reader.onerror = (e) => reject(new Error('Failed to read file: ' + file.name));
+                reader.readAsText(file);
+            });
+        }
+
+        function showPieChart() {
+            if (!pieData || !pieData.data) {
+                showError('Invalid pie chart data structure');
+                return;
+            }
+            
+            currentView = 'pie';
+            currentPersona = null;
+            showingSentiment = false;
+            
+            document.getElementById('chartTitle').textContent = pieData.title || 'Persona Distribution';
+            document.getElementById('chartSubtitle').textContent = pieData.subtitle || 'Click on a segment to see trends';
+            document.getElementById('backButton').style.display = 'none';
+            document.getElementById('sentimentToggleButton').style.display = 'none';
+            document.getElementById('personaIcons').style.display = 'flex';
+            document.getElementById('trendStats').classList.remove('show');
+            document.getElementById('yearFilter').classList.remove('show');
+            document.getElementById('chartContainer').style.display = 'block';
+            
+            const container = document.getElementById('chartContainer');
+            container.className = 'chart-container pie-container';
+            container.innerHTML = '<canvas id="mainChart"></canvas>';
+            
+            generatePersonaIcons();
+            createPieChart();
+        }
+
+        function showTrendChart(personaKey) {
+            if (!integratedData || !integratedData.personas || !integratedData.personas[personaKey]) {
+                showError(`Persona data not found for: ${personaKey}`);
+                return;
+            }
+            
+            currentView = 'trend';
+            currentPersona = personaKey;
+            showingSentiment = false;
+            
+            const persona = integratedData.personas[personaKey];
+            updateTrendUI(persona);
+            
+            const container = document.getElementById('chartContainer');
+            container.className = 'chart-container trend-container';
+            container.innerHTML = '<canvas id="mainChart"></canvas>';
+            
+            createTrendChart(persona);
+            showTrendStats(persona);
+        }
+
+        function toggleSentimentView() {
+            if (!currentPersona) return;
+            
+            showingSentiment = !showingSentiment;
+            
+            if (showingSentiment) {
+                currentView = 'sentiment-trend';
+                showSentimentTrendChart();
+            } else {
+                currentView = 'trend';
+                showTrendChart(currentPersona);
+            }
+        }
+
+        function showSentimentTrendChart() {
+            const persona = integratedData.personas[currentPersona];
+            
+            document.getElementById('chartTitle').textContent = `${persona.label} - Average Sentiment Trend`;
+            document.getElementById('chartSubtitle').textContent = `Monthly sentiment analysis • Hover for details • Click for reviews`;
+            document.getElementById('sentimentToggleButton').classList.add('active');
+            document.getElementById('sentimentToggleText').textContent = 'Show Volume';
+            
+            createSentimentTrendChart(persona);
+        }
+
+        function createSentimentTrendChart(persona) {
+            const ctx = document.getElementById('mainChart').getContext('2d');
+            
+            if (currentChart) {
+                currentChart.destroy();
+            }
+            
+            const config = personaConfig[persona.raw_persona];
+            const color = config ? config.color : '#3498db';
+            
+            const filteredData = filterDataByYears(persona.monthly_data);
+            
+            currentChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: filteredData.map(item => item.date),
+                    datasets: [{
+                        label: `${persona.label} Sentiment`,
+                        data: filteredData.map(item => item.avg_sentiment || 0),
+                        borderColor: color,
+                        backgroundColor: color + '20',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: color,
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false }
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            title: { display: true, text: 'Month' }
+                        },
+                        y: {
+                            display: true,
+                            title: { display: true, text: 'Average Sentiment' },
+                            min: 0,
+                            max: 2,
+                            ticks: {
+                                stepSize: 0.5,
+                                callback: function(value) {
+                                    const labels = {0: 'Negative', 0.5: '0.5', 1: 'Neutral', 1.5: '1.5', 2: 'Positive'};
+                                    return labels[value] || value;
+                                }
+                            }
+                        }
+                    },
+                    onHover: (event, activeElements) => {
+                        const canvas = event.chart.canvas;
+                        canvas.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+                        
+                        if (activeElements.length > 0) {
+                            const dataIndex = activeElements[0].index;
+                            const monthData = filteredData[dataIndex];
+                            showSentimentTooltip(event.native, monthData, persona.raw_persona);
+                        } else {
+                            hideSentimentTooltip();
+                        }
+                    },
+                    onClick: (event, activeElements) => {
+                        if (activeElements.length > 0) {
+                            const dataIndex = activeElements[0].index;
+                            const monthData = filteredData[dataIndex];
+                            showMonthReviewSelector(monthData, currentPersona, persona.label);
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    }
+                }
+            });
+            
+            const canvas = document.getElementById('mainChart');
+            canvas.addEventListener('mouseleave', () => {
+                hideSentimentTooltip();
+            });
+        }
+
+        function updateTrendUI(persona) {
+            document.getElementById('chartTitle').textContent = `${persona.label} - Review Volume Trend`;
+            document.getElementById('chartSubtitle').textContent = `${persona.total_reviews.toLocaleString()} total reviews • ${persona.overall_avg_sentiment} avg sentiment • Hover for details`;
+            document.getElementById('backButton').style.display = 'block';
+            document.getElementById('sentimentToggleButton').style.display = 'block';
+            document.getElementById('sentimentToggleButton').classList.remove('active');
+            document.getElementById('sentimentToggleText').textContent = 'Show Sentiment';
+            document.getElementById('personaIcons').style.display = 'none';
+            document.getElementById('yearFilter').classList.add('show');
+            
+            generateYearFilter();
+        }
+
+        function generatePersonaIcons() {
+            const iconContainer = document.getElementById('personaIcons');
+            iconContainer.innerHTML = '';
+            
+            if (!pieData || !pieData.data) {
+                console.error('No pie data available');
+                return;
+            }
+            
+            pieData.data.forEach((item, index) => {
+                const config = personaConfig[item.raw_persona];
+                if (config) {
+                    const iconDiv = document.createElement('div');
+                    iconDiv.className = 'persona-icon';
+                    iconDiv.style.backgroundColor = config.color + '20';
+                    iconDiv.style.color = config.color;
+                    iconDiv.dataset.index = index;
+                    iconDiv.dataset.persona = item.raw_persona;
+                    
+                    iconDiv.innerHTML = `
+                        <i class="${config.icon}"></i>
+                        <span>${config.label.replace(' ', '<br>')}</span>
+                    `;
+                    
+                    iconDiv.addEventListener('click', () => {
+                        showTrendChart(item.raw_persona);
+                    });
+                    
+                    iconContainer.appendChild(iconDiv);
+                }
+            });
+        }
+
+        function createPieChart() {
+            const ctx = document.getElementById('mainChart').getContext('2d');
+            
+            if (currentChart) {
+                currentChart.destroy();
+            }
+            
+            if (!pieData || !pieData.data) {
+                showError('No pie chart data available');
+                return;
+            }
+            
+            const colors = pieData.data.map(item => {
+                const config = personaConfig[item.raw_persona];
+                return config ? config.color : '#95a5a6';
+            });
+            
+            currentChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: pieData.data.map(item => item.label),
+                    datasets: [{
+                        data: pieData.data.map(item => item.value),
+                        backgroundColor: colors,
+                        borderWidth: 3,
+                        borderColor: '#ffffff',
+                        hoverBorderWidth: 4,
+                        hoverBorderColor: '#2c3e50',
+                        hoverBackgroundColor: colors.map(color => color + 'CC')
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(44, 62, 80, 0.95)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#ffffff',
+                            borderColor: '#3498db',
+                            borderWidth: 1,
+                            cornerRadius: 8,
+                            displayColors: true,
+                            callbacks: {
+                                label: function(context) {
+                                    const item = pieData.data[context.dataIndex];
+                                    return [
+                                        `${item.label}`,
+                                        `${item.value.toLocaleString()} reviews`,
+                                        `${item.percentage}% of total`,
+                                        `${item.avg_stars} ⭐ avg stars`,
+                                        `${item.avg_sentiment} avg sentiment`,
+                                        'Click to see trend'
+                                    ];
+                                }
+                            }
+                        }
+                    },
+                    onHover: (event, activeElements) => {
+                        event.native.target.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+                        
+                        if (activeElements.length > 0) {
+                            highlightIcon(activeElements[0].index);
+                        } else {
+                            clearIconHighlight();
+                        }
+                    },
+                    onClick: (event, activeElements) => {
+                        if (activeElements.length > 0) {
+                            const clickedIndex = activeElements[0].index;
+                            const clickedPersona = pieData.data[clickedIndex];
+                            showTrendChart(clickedPersona.raw_persona);
+                        }
+                    }
+                }
+            });
+        }
+
+        function createTrendChart(persona) {
+            const ctx = document.getElementById('mainChart').getContext('2d');
+            
+            if (currentChart) {
+                currentChart.destroy();
+            }
+            
+            const config = personaConfig[persona.raw_persona];
+            const color = config ? config.color : '#3498db';
+            
+            const filteredData = filterDataByYears(persona.monthly_data);
+            
+            currentChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: filteredData.map(item => item.date),
+                    datasets: [{
+                        label: persona.label,
+                        data: filteredData.map(item => item.review_count),
+                        borderColor: color,
+                        backgroundColor: color + '20',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: color,
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false }
+                    },
+                    scales: {
+                        x: { display: true, title: { display: true, text: 'Month' } },
+                        y: { display: true, title: { display: true, text: 'Number of Reviews' }, beginAtZero: true }
+                    },
+                    onHover: (event, activeElements) => {
+                        const canvas = event.chart.canvas;
+                        canvas.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+                        
+                        if (activeElements.length > 0) {
+                            const dataIndex = activeElements[0].index;
+                            const monthData = filteredData[dataIndex];
+                            showSentimentTooltip(event.native, monthData, persona.raw_persona);
+                        } else {
+                            hideSentimentTooltip();
+                        }
+                    },
+                    onClick: (event, activeElements) => {
+                        if (activeElements.length > 0) {
+                            const dataIndex = activeElements[0].index;
+                            const monthData = filteredData[dataIndex];
+                            showMonthReviewSelector(monthData, currentPersona, persona.label);
+                        }
+                    },
+                    interaction: { intersect: false, mode: 'index' }
+                }
+            });
+            
+            const canvas = document.getElementById('mainChart');
+            canvas.addEventListener('mouseleave', () => {
+                hideSentimentTooltip();
+            });
+        }
+
+        function showSentimentTooltip(event, monthData, personaKey) {
+            const tooltip = document.getElementById('sentimentTooltip');
+            
+            let tooltipContent = `
+                <div style="font-weight: bold; margin-bottom: 8px;">${monthData.date}</div>
+                <div>Reviews: ${monthData.review_count}</div>
+                <div>Avg Sentiment: ${monthData.avg_sentiment}</div>
+                <div class="sentiment-distribution">
+            `;
+            
+            if (monthData.sentiment_distribution) {
+                Object.entries(monthData.sentiment_distribution).forEach(([sentimentVal, data]) => {
+                    const percentage = data.percentage;
+                    const sentimentInfo = sentimentConfig[parseInt(sentimentVal)];
+                    const colorClass = `sentiment-${sentimentInfo.label.toLowerCase()}`;
+                    
+                    tooltipContent += `
+                        <div class="sentiment-bar" onclick="showReviews('${personaKey}', '${monthData.date}', ${sentimentVal})">
+                            <span style="width: 60px;">${sentimentInfo.icon} ${sentimentInfo.label}</span>
+                            <div class="sentiment-bar-fill ${colorClass}" style="width: ${percentage * 2}px;"></div>
+                            <span style="margin-left: 8px;">${data.count} (${percentage}%)</span>
+                        </div>
+                    `;
+                });
+            }
+            
+            tooltipContent += '</div><div style="margin-top: 8px; font-size: 10px; color: #bdc3c7;">Click sentiment to see reviews</div>';
+            
+            tooltip.innerHTML = tooltipContent;
+            
+            const x = event.pageX + 10;
+            const y = event.pageY - 10;
+            
+            tooltip.style.left = `${x}px`;
+            tooltip.style.top = `${y}px`;
+            tooltip.style.display = 'block';
+        }
+
+        function showMonthReviewSelector(monthData, personaKey, personaLabel) {
+            const modal = document.getElementById('reviewModal');
+            const modalTitle = document.getElementById('reviewModalTitle');
+            const modalContent = document.getElementById('reviewModalContent');
+            
+            modalTitle.textContent = `${personaLabel} Reviews - ${monthData.date}`;
+            
+            let selectorHtml = `
+                <div style="margin-bottom: 15px; text-align: center;">
+                    <strong>Select a sentiment to view reviews:</strong>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+            `;
+            
+            if (monthData.sentiment_distribution) {
+                Object.entries(monthData.sentiment_distribution).forEach(([sentimentVal, data]) => {
+                    if (data.count > 0) {
+                        const sentimentInfo = sentimentConfig[parseInt(sentimentVal)];
+                        selectorHtml += `
+                            <button style="
+                                background: ${sentimentInfo.color}; 
+                                color: white; 
+                                border: none; 
+                                padding: 10px 15px; 
+                                border-radius: 8px; 
+                                cursor: pointer;
+                                font-size: 14px;
+                                transition: background-color 0.2s;
+                            " onclick="showReviews('${personaKey}', '${monthData.date}', '${sentimentVal}')"
+                            onmouseover="this.style.opacity='0.8'"
+                            onmouseout="this.style.opacity='1'">
+                                ${sentimentInfo.icon} ${sentimentInfo.label}<br>
+                                <small>${data.count} reviews</small>
+                            </button>
+                        `;
+                    }
+                });
+            }
+            
+            selectorHtml += '</div>';
+            
+            modalContent.innerHTML = selectorHtml;
+            modal.style.display = 'block';
+        }
+
+        function hideSentimentTooltip() {
+            document.getElementById('sentimentTooltip').style.display = 'none';
+        }
+
+        function showReviews(personaKey, monthDate, sentimentValue) {
+            if (!integratedData || !integratedData.personas) {
+                alert('Integrated data not loaded. Please check if the JSON file exists.');
+                return;
+            }
+            
+            const persona = integratedData.personas[personaKey];
+            if (!persona) {
+                console.error('Persona not found:', personaKey);
+                alert(`Persona '${personaKey}' not found.`);
+                return;
+            }
+            
+            const monthData = persona.monthly_data.find(m => m.date === monthDate);
+            if (!monthData) {
+                console.error('Month data not found:', monthDate);
+                alert('Month data not found.');
+                return;
+            }
+            
+            if (!monthData.top_reviews_by_sentiment || !monthData.top_reviews_by_sentiment[sentimentValue]) {
+                console.error('No reviews found for sentiment:', sentimentValue);
+                alert(`No reviews found for sentiment ${sentimentValue} in ${monthDate}.`);
+                return;
+            }
+            
+            const sentimentData = monthData.top_reviews_by_sentiment[sentimentValue];
+            const reviews = sentimentData.reviews;
+            
+            const modal = document.getElementById('reviewModal');
+            const modalTitle = document.getElementById('reviewModalTitle');
+            const modalContent = document.getElementById('reviewModalContent');
+            
+            const sentimentInfo = sentimentConfig[parseInt(sentimentValue)];
+            modalTitle.textContent = `${sentimentInfo.icon} ${sentimentInfo.label} Reviews - ${persona.label} (${monthDate})`;
+            
+            let reviewsHtml = '';
+            reviews.forEach((review, index) => {
+                reviewsHtml += `
+                    <div class="review-item">
+                        <div class="review-meta">
+                            <span class="review-confidence">Persona: ${review.persona_confidence}</span>
+                            <span class="review-confidence" style="background: ${sentimentInfo.color};">Sentiment: ${review.sentiment_confidence}</span>
+                            <span>ID: ${review.review_index}</span>
+                            <span>${review.published_date}</span>
+                        </div>
+                        <p class="review-text">${review.review_text}</p>
+                    </div>
+                `;
+            });
+            
+            if (reviewsHtml === '') {
+                reviewsHtml = '<div style="text-align: center; color: #7f8c8d;">No reviews available for this sentiment.</div>';
+            }
+            
+            modalContent.innerHTML = reviewsHtml;
+            modal.style.display = 'block';
+            
+            hideSentimentTooltip();
+        }
+
+        function closeReviewModal() {
+            document.getElementById('reviewModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('reviewModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        function showTrendStats(persona) {
+            const statsDiv = document.getElementById('trendStats');
+            
+            const monthlyData = filterDataByYears(persona.monthly_data);
+            const totalReviews = monthlyData.reduce((sum, month) => sum + month.review_count, 0);
+            const avgSentiment = monthlyData.reduce((sum, month) => sum + month.avg_sentiment * month.review_count, 0) / totalReviews;
+            const peakMonth = monthlyData.reduce((max, month) => month.review_count > max.review_count ? month : max, monthlyData[0]);
+            
+            statsDiv.innerHTML = `
+                <div style="display: flex; justify-content: space-around; text-align: center;">
+                    <div>
+                        <strong>Peak Month</strong><br>
+                        ${peakMonth.date}<br>
+                        ${peakMonth.review_count} reviews
+                    </div>
+                    <div>
+                        <strong>Average Sentiment</strong><br>
+                        ${avgSentiment.toFixed(2)}<br>
+                        across ${monthlyData.length} months
+                    </div>
+                    <div>
+                        <strong>Total</strong><br>
+                        ${totalReviews.toLocaleString()}<br>
+                        reviews (filtered)
+                    </div>
+                </div>
+            `;
+            statsDiv.classList.add('show');
+        }
+
+        function highlightIcon(index) {
+            clearIconHighlight();
+            const icons = document.querySelectorAll('.persona-icon');
+            if (icons[index]) {
+                icons[index].classList.add('active');
+            }
+        }
+
+        function clearIconHighlight() {
+            document.querySelectorAll('.persona-icon').forEach(icon => {
+                icon.classList.remove('active');
+            });
+        }
+
+        function extractAvailableYears() {
+            const yearsSet = new Set();
+            
+            if (integratedData && integratedData.personas) {
+                Object.values(integratedData.personas).forEach(persona => {
+                    if (persona.monthly_data) {
+                        persona.monthly_data.forEach(month => {
+                            const year = parseInt(month.date.split('-')[0]);
+                            yearsSet.add(year);
+                        });
+                    }
+                });
+            }
+            
+            availableYears = Array.from(yearsSet).sort((a, b) => a - b);
+            console.log('Available years:', availableYears);
+        }
+
+        function generateYearFilter() {
+            const yearButtons = document.getElementById('yearButtons');
+            yearButtons.innerHTML = '';
+            
+            availableYears.forEach(year => {
+                const button = document.createElement('button');
+                button.className = `year-btn ${selectedYears.has(year) ? 'active' : ''}`;
+                button.textContent = year;
+                button.onclick = () => toggleYear(year);
+                yearButtons.appendChild(button);
+            });
+            
+            updateYearRangeInfo();
+        }
+
+        function toggleYear(year) {
+            if (selectedYears.has(year)) {
+                selectedYears.delete(year);
+            } else {
+                selectedYears.add(year);
+            }
+            
+            generateYearFilter();
+            
+            if (currentView === 'trend') {
+                const persona = integratedData.personas[currentPersona];
+                createTrendChart(persona);
+                showTrendStats(persona);
+            } else if (currentView === 'sentiment-trend') {
+                const persona = integratedData.personas[currentPersona];
+                createSentimentTrendChart(persona);
+            }
+        }
+
+        function selectQuickFilter(type) {
+            document.querySelectorAll('.quick-filter-btn').forEach(btn => btn.classList.remove('active'));
+            
+            switch(type) {
+                case 'recent3':
+                    const recent3Years = availableYears.slice(-3);
+                    selectedYears = new Set(recent3Years);
+                    event.target.classList.add('active');
+                    break;
+                    
+                case 'recent5':
+                    const recent5Years = availableYears.slice(-5);
+                    selectedYears = new Set(recent5Years);
+                    event.target.classList.add('active');
+                    break;
+                    
+                case 'all':
+                    selectedYears = new Set(availableYears);
+                    event.target.classList.add('active');
+                    break;
+                    
+                case 'clear':
+                    selectedYears = new Set();
+                    event.target.classList.add('active');
+                    break;
+            }
+            
+            generateYearFilter();
+            
+            if (currentView === 'trend') {
+                const persona = integratedData.personas[currentPersona];
+                createTrendChart(persona);
+                showTrendStats(persona);
+            } else if (currentView === 'sentiment-trend') {
+                const persona = integratedData.personas[currentPersona];
+                createSentimentTrendChart(persona);
+            }
+        }
+
+        function updateYearRangeInfo() {
+            const info = document.getElementById('yearRangeInfo');
+            const selectedYearsArray = Array.from(selectedYears).sort((a, b) => a - b);
+            
+            if (selectedYearsArray.length === 0) {
+                info.textContent = 'No years selected';
+            } else if (selectedYearsArray.length === availableYears.length) {
+                info.textContent = `All years selected (${selectedYearsArray[0]} - ${selectedYearsArray[selectedYearsArray.length - 1]})`;
+            } else {
+                info.textContent = `${selectedYearsArray.length} years selected: ${selectedYearsArray.join(', ')}`;
+            }
+        }
+
+        function filterDataByYears(data) {
+            if (selectedYears.size === 0) return [];
+            
+            return data.filter(item => {
+                const year = parseInt(item.date.split('-')[0]);
+                return selectedYears.has(year);
+            });
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Dashboard ready - please load your JSON files');
+        });
+
+        // Chatbot and map functionality
+        // Global configuration
+        let chatConfig = {
+            apiKey: '',
+            systemPrompt: '',
+            conversationHistory: [],
+            knowledgeBase: null
+        };
+
+        // Initialize on page load
+        document.addEventListener("DOMContentLoaded", () => {
+            loadConfig();
+            initializeDraggable();
+            initializeChatbot();
+            // Auto-load positions from localStorage if available
+            loadPositionsFromStorage();
+        });
+
+        // Configuration functions
+        function loadConfig() {
+            const saved = JSON.parse(localStorage.getItem('chatgpt-config') || '{}');
+            if (saved.apiKey && saved.systemPrompt) {
+                chatConfig = saved;
+                document.getElementById('config-modal').style.display = 'none';
+                document.getElementById('api-key').value = saved.apiKey;
+                document.getElementById('system-prompt').value = saved.systemPrompt;
+                
+                // If there's a saved knowledge base, show indicator
+                if (saved.knowledgeBase) {
+                    console.log('Knowledge base loaded from previous session');
+                }
+            }
+        }
+
+        function loadKnowledgeBase(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const knowledgeData = JSON.parse(e.target.result);
+                    chatConfig.knowledgeBase = knowledgeData;
+                    console.log('Knowledge base loaded:', knowledgeData);
+                    alert('Knowledge base loaded successfully!');
+                } catch (error) {
+                    console.error('Error loading knowledge base:', error);
+                    alert('Error loading knowledge base file. Please check the JSON format.');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function buildSystemPromptWithKnowledge() {
+            let fullSystemPrompt = chatConfig.systemPrompt;
+            
+            if (chatConfig.knowledgeBase) {
+                fullSystemPrompt += "\n\n### Additional Knowledge Base ###\n";
+                fullSystemPrompt += "Here is specific information about USS that you should use when answering questions:\n\n";
+                fullSystemPrompt += JSON.stringify(chatConfig.knowledgeBase, null, 2);
+                fullSystemPrompt += "\n\nUse this information to provide accurate and detailed responses about USS.";
+            }
+            
+            return fullSystemPrompt;
+        }
+
+        function saveConfig() {
+            const apiKey = document.getElementById('api-key').value.trim();
+            const systemPrompt = document.getElementById('system-prompt').value.trim();
+            
+            if (!apiKey) {
+                alert('Please enter your OpenAI API key');
+                return;
+            }
+            
+            if (!systemPrompt) {
+                alert('Please enter system instructions');
+                return;
+            }
+
+            chatConfig.apiKey = apiKey;
+            chatConfig.systemPrompt = systemPrompt;
+            chatConfig.conversationHistory = [];
+            // Keep the existing knowledge base if loaded
+
+            localStorage.setItem('chatgpt-config', JSON.stringify(chatConfig));
+            document.getElementById('config-modal').style.display = 'none';
+            
+            // Add welcome message
+            let welcomeMsg = 'Hi! I\'m your USS assistant powered by ChatGPT. How can I help you today?';
+            if (chatConfig.knowledgeBase) {
+                welcomeMsg += '\n\nI have loaded additional USS information from your knowledge base.';
+            }
+            appendMessage('bot', welcomeMsg);
+        }
+
+        function showConfig() {
+            document.getElementById('config-modal').style.display = 'flex';
+        }
+
+        // Chatbot functions
+        function initializeChatbot() {
+            const chatbotToggle = document.getElementById('chatbot-toggle');
+            const chatbotWindow = document.getElementById('chatbot-window');
+            const chatInput = document.getElementById('chat-input');
+            const chatSend = document.getElementById('chat-send');
+
+            chatbotToggle.addEventListener('click', () => {
+                if (!chatConfig.apiKey) {
+                    showConfig();
+                    return;
+                }
+                chatbotWindow.style.display = chatbotWindow.style.display === 'none' ? 'flex' : 'none';
+            });
+
+            chatSend.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+        }
+
+        async function sendMessage() {
+            const chatInput = document.getElementById('chat-input');
+            const message = chatInput.value.trim();
+            
+            if (!message) return;
+            if (!chatConfig.apiKey) {
+                showConfig();
+                return;
+            }
+
+            // Add user message
+            appendMessage('user', message);
+            chatInput.value = '';
+            
+            // Show typing indicator
+            showTyping(true);
+
+            try {
+                const response = await callChatGPT(message);
+                showTyping(false);
+                appendMessage('bot', response);
+            } catch (error) {
+                showTyping(false);
+                appendMessage('error', `Error: ${error.message}`);
+            }
+        }
+
+        async function callChatGPT(userMessage) {
+            // Add user message to conversation history
+            chatConfig.conversationHistory.push({
+                role: 'user',
+                content: userMessage
+            });
+
+            // Keep only last 10 messages to avoid token limits
+            if (chatConfig.conversationHistory.length > 10) {
+                chatConfig.conversationHistory = chatConfig.conversationHistory.slice(-10);
+            }
+
+            // Build system prompt with knowledge base
+            const systemPromptWithKnowledge = buildSystemPromptWithKnowledge();
+
+            const messages = [
+                { role: 'system', content: systemPromptWithKnowledge },
+                ...chatConfig.conversationHistory
+            ];
+
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${chatConfig.apiKey}`
+                },
+                body: JSON.stringify({
+                    model: 'gpt-3.5-turbo',
+                    messages: messages,
+                    max_tokens: 500,
+                    temperature: 0.7
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.error?.message || `HTTP ${response.status}`);
+            }
+
+            const data = await response.json();
+            const assistantMessage = data.choices[0].message.content;
+            
+            // Add assistant response to conversation history
+            chatConfig.conversationHistory.push({
+                role: 'assistant',
+                content: assistantMessage
+            });
+
+            return assistantMessage;
+        }
+
+        function appendMessage(type, message) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            
+            let className = 'message ';
+            switch(type) {
+                case 'user':
+                    className += 'user-message';
+                    break;
+                case 'bot':
+                    className += 'bot-message';
+                    break;
+                case 'error':
+                    className += 'error-message';
+                    break;
+            }
+            
+            messageDiv.className = className;
+            messageDiv.innerHTML = message.replace(/\n/g, '<br>');
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTyping(show) {
+            const typingIndicator = document.getElementById('typing-indicator');
+            typingIndicator.style.display = show ? 'block' : 'none';
+            
+            if (show) {
+                const chatMessages = document.getElementById('chat-messages');
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+
+        function clearChat() {
+            document.getElementById('chat-messages').innerHTML = '';
+            chatConfig.conversationHistory = [];
+            appendMessage('bot', 'Chat cleared! How can I help you?');
+        }
+
+        // Draggable functionality
+        function initializeDraggable() {
+            const makeDraggable = (el) => {
+                let isDragging = false;
+                let offsetX = 0;
+                let offsetY = 0;
+
+                el.addEventListener("mousedown", (e) => {
+                    isDragging = true;
+                    offsetX = e.clientX - el.offsetLeft;
+                    offsetY = e.clientY - el.offsetTop;
+                    el.style.zIndex = 1000;
+                });
+
+                document.addEventListener("mousemove", (e) => {
+                    if (!isDragging) return;
+                    el.style.left = `${e.clientX - offsetX}px`;
+                    el.style.top = `${e.clientY - offsetY}px`;
+                    // Auto-save positions to localStorage on drag
+                    savePositionsToStorage();
+                });
+
+                document.addEventListener("mouseup", () => {
+                    if (isDragging) {
+                        isDragging = false;
+                        el.style.zIndex = 10;
+                    }
+                });
+            };
+
+            document.querySelectorAll(".label,.label-small, .express-box").forEach(el => {
+                if (!el.id) el.id = 'drag-' + Math.random().toString(36).substring(2, 9);
+                makeDraggable(el);
+            });
+        }
+
+        // Position saving and loading functions
+        function getElementPositions() {
+            const positions = {};
+            document.querySelectorAll(".label,.label-small, .express-box").forEach(el => {
+                if (el.id) {
+                    positions[el.id] = {
+                        left: el.style.left,
+                        top: el.style.top,
+                        transform: el.style.transform || ''
+                    };
+                }
+            });
+            return positions;
+        }
+
+        function applyPositions(positions) {
+            Object.keys(positions).forEach(id => {
+                const el = document.getElementById(id);
+                if (el && positions[id]) {
+                    el.style.left = positions[id].left;
+                    el.style.top = positions[id].top;
+                    if (positions[id].transform) {
+                        el.style.transform = positions[id].transform;
+                    }
+                }
+            });
+        }
+
+        function savePositions() {
+            const positions = getElementPositions();
+            const dataStr = JSON.stringify(positions, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = 'uss-map-positions.json';
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            // Also save to localStorage
+            savePositionsToStorage();
+            
+            console.log('Positions saved to file and localStorage');
+        }
+
+        function loadPositionsFromFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const positions = JSON.parse(e.target.result);
+                    applyPositions(positions);
+                    // Save to localStorage after loading
+                    savePositionsToStorage();
+                    console.log('Positions loaded from file');
+                } catch (error) {
+                    console.error('Error loading positions:', error);
+                    alert('Error loading positions file. Please check the file format.');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function savePositionsToStorage() {
+            const positions = getElementPositions();
+            localStorage.setItem('uss-map-positions', JSON.stringify(positions));
+        }
+
+        function loadPositionsFromStorage() {
+            const saved = localStorage.getItem('uss-map-positions');
+            if (saved) {
+                try {
+                    const positions = JSON.parse(saved);
+                    applyPositions(positions);
+                    console.log('Positions loaded from localStorage');
+                } catch (error) {
+                    console.error('Error loading positions from storage:', error);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

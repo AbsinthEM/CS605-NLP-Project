@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>USS Persona Interactive Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            min-height: 450px;
+        }
+        .button-container {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+        .back-button, .compare-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            display: none;
+        }
+        .back-button:hover, .compare-button:hover {
+            background: #2980b9;
+            transform: translateY(-1px);
+        }
+        .compare-button {
+            background: #e74c3c;
+        }
+        .compare-button:hover {
+            background: #c0392b;
+        }
+        .compare-button.active {
+            background: #27ae60;
+        }
+        .compare-button.active:hover {
+            background: #229954;
+        }
+        .persona-icons {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+            transition: opacity 0.3s ease;
+        }
+        .persona-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            opacity: 0.7;
+            min-width: 60px;
+        }
+        .persona-icon:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .persona-icon.active {
+            opacity: 1;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .persona-icon i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+        .persona-icon span {
+            font-size: 10px;
+            text-align: center;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+        .chart-container { 
+            width: 100%; 
+            height: 350px; 
+            margin: 0 auto;
+            position: relative;
+            transition: all 0.5s ease;
+            margin-top: 40px;
+        }
+        .pie-container {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+        .trend-container {
+            width: 100%;
+            height: 400px;
+        }
+        .chart-title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 40px;
+        }
+        .chart-subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+        .trend-stats {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 8px;
+            font-size: 12px;
+            color: #2c3e50;
+        }
+        .trend-stats.show {
+            display: block;
+        }
+        .loading {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        .legend-container {
+            display: none;
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .legend-container.show {
+            display: block;
+        }
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            margin: 5px 10px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .legend-item:hover {
+            transform: scale(1.05);
+        }
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            margin-right: 6px;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+        }
+        .legend-item.highlighted {
+            font-weight: bold;
+            transform: scale(1.1);
+        }
+        .legend-item.dimmed {
+            opacity: 0.4;
+        }
+        .year-filter {
+            display: none;
+            text-align: center;
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .year-filter.show {
+            display: block;
+        }
+        .year-filter-title {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        .year-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+        .year-btn {
+            background: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            color: #2c3e50;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.2s ease;
+            min-width: 35px;
+        }
+        .year-btn:hover {
+            background: #d5dbdb;
+        }
+        .year-btn.active {
+            background: #3498db;
+            color: white;
+            border-color: #2980b9;
+        }
+        .year-range-info {
+            font-size: 10px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        .quick-filters {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .quick-filter-btn {
+            background: #95a5a6;
+            color: white;
+            border: none;
+            padding: 3px 8px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 10px;
+            transition: all 0.2s ease;
+        }
+        .quick-filter-btn:hover {
+            background: #7f8c8d;
+        }
+        .quick-filter-btn.active {
+            background: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-card">
+        <div class="button-container">
+            <button class="back-button" id="backButton" onclick="showPieChart()">
+                <i class="fas fa-arrow-left"></i> Back to Overview
+            </button>
+            <button class="compare-button" id="compareButton" onclick="toggleCompareMode()">
+                <i class="fas fa-chart-line"></i> <span id="compareText">Compare All</span>
+            </button>
+        </div>
+        
+        <h2 class="chart-title" id="chartTitle">Loading...</h2>
+        <p class="chart-subtitle" id="chartSubtitle">Loading data...</p>
+        
+        <!-- 画像图标区域 -->
+        <div class="persona-icons" id="personaIcons">
+            <!-- 图标将通过JavaScript动态生成 -->
+        </div>
+        
+        <div class="chart-container" id="chartContainer">
+            <canvas id="mainChart"></canvas>
+        </div>
+        
+        <div class="legend-container" id="legendContainer">
+            <!-- 多趋势图例 -->
+        </div>
+        
+        <div class="year-filter" id="yearFilter">
+            <div class="year-filter-title">Select Years to Display</div>
+            <div class="year-buttons" id="yearButtons">
+                <!-- 年份按钮将通过JavaScript生成 -->
+            </div>
+            <div class="quick-filters">
+                <button class="quick-filter-btn" onclick="selectQuickFilter('recent3')">Last 3 Years</button>
+                <button class="quick-filter-btn" onclick="selectQuickFilter('recent5')">Last 5 Years</button>
+                <button class="quick-filter-btn active" onclick="selectQuickFilter('all')">All Years</button>
+                <button class="quick-filter-btn" onclick="selectQuickFilter('clear')">Clear All</button>
+            </div>
+            <div class="year-range-info" id="yearRangeInfo">
+                <!-- 选择范围信息 -->
+            </div>
+        </div>
+        
+        <div class="trend-stats" id="trendStats">
+            <!-- 趋势统计信息 -->
+        </div>
+    </div>
+
+    <script>
+        // 定义每个画像对应的图标和颜色
+        const personaConfig = {
+            'experience_focused': {
+                icon: 'fas fa-star',
+                color: '#FF6B9D',
+                label: 'Experience Focused'
+            },
+            'families': {
+                icon: 'fas fa-users',
+                color: '#45B7D1',
+                label: 'Families'
+            },
+            'international_tourists': {
+                icon: 'fas fa-globe',
+                color: '#4ECDC4',
+                label: 'International Tourists'
+            },
+            'premium_visitors': {
+                icon: 'fas fa-crown',
+                color: '#96CEB4',
+                label: 'Premium Visitors'
+            },
+            'thrill_seekers': {
+                icon: 'fas fa-bolt',
+                color: '#DDA0DD',
+                label: 'Thrill Seekers'
+            },
+            'budget_conscious': {
+                icon: 'fas fa-piggy-bank',
+                color: '#FFEAA7',
+                label: 'Budget Conscious'
+            }
+        };
+
+        // 全局变量
+        let currentChart = null;
+        let pieData = null;
+        let trendData = null;
+        let currentView = 'pie'; // 'pie', 'trend', 'compare'
+        let currentPersona = null;
+        let compareMode = false;
+        let selectedYears = new Set(); // 选中的年份
+        let availableYears = []; // 可用的年份列表
+
+        // JSON文件路径
+        const pieJsonPath = './persona_distribution_pie_chart_threshold_0.5.json';
+        const trendJsonPath = './persona_trends_threshold_0.5.json';
+
+        // 初始化
+        async function init() {
+            try {
+                // 加载两个JSON文件
+                const [pieResponse, trendResponse] = await Promise.all([
+                    fetch(pieJsonPath),
+                    fetch(trendJsonPath)
+                ]);
+
+                if (!pieResponse.ok || !trendResponse.ok) {
+                    throw new Error('Failed to load data files');
+                }
+
+                pieData = await pieResponse.json();
+                trendData = await trendResponse.json();
+
+                console.log('Data loaded successfully');
+                
+                // 提取可用年份
+                extractAvailableYears();
+                
+                // 默认选择所有年份
+                selectedYears = new Set(availableYears);
+                
+                // 显示饼图
+                showPieChart();
+                
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.getElementById('chartTitle').textContent = 'Error Loading Data';
+                document.getElementById('chartSubtitle').textContent = 'Please check the JSON files and try again.';
+            }
+        }
+
+        // 显示饼图
+        function showPieChart() {
+            currentView = 'pie';
+            currentPersona = null;
+            compareMode = false;
+            
+            // 更新UI
+            document.getElementById('chartTitle').textContent = pieData.title;
+            document.getElementById('chartSubtitle').textContent = pieData.subtitle;
+            document.getElementById('backButton').style.display = 'none';
+            document.getElementById('compareButton').style.display = 'none';
+            document.getElementById('personaIcons').style.display = 'flex';
+            document.getElementById('trendStats').classList.remove('show');
+            document.getElementById('legendContainer').classList.remove('show');
+            document.getElementById('yearFilter').classList.remove('show');
+            
+            // 调整容器大小
+            const container = document.getElementById('chartContainer');
+            container.className = 'chart-container pie-container';
+            
+            // 生成画像图标
+            generatePersonaIcons();
+            
+            // 创建饼图
+            createPieChart();
+        }
+
+        // 显示趋势图
+        function showTrendChart(personaKey) {
+            currentView = 'trend';
+            currentPersona = personaKey;
+            compareMode = false;
+            
+            const persona = trendData.personas[personaKey];
+            if (!persona) {
+                console.error('Persona not found:', personaKey);
+                return;
+            }
+            
+            // 更新UI
+            updateTrendUI(persona);
+            
+            // 调整容器大小
+            const container = document.getElementById('chartContainer');
+            container.className = 'chart-container trend-container';
+            
+            // 创建单趋势图
+            createSingleTrendChart(persona);
+            
+            // 显示趋势统计
+            showTrendStats(persona);
+        }
+
+        // 切换对比模式
+        function toggleCompareMode() {
+            if (!currentPersona) return;
+            
+            compareMode = !compareMode;
+            
+            if (compareMode) {
+                currentView = 'compare';
+                showCompareChart();
+            } else {
+                currentView = 'trend';
+                showTrendChart(currentPersona);
+            }
+        }
+
+        // 显示对比图
+        function showCompareChart() {
+            const persona = trendData.personas[currentPersona];
+            
+            // 更新UI
+            document.getElementById('chartTitle').textContent = 'All Personas Comparison';
+            document.getElementById('chartSubtitle').textContent = `${persona.label} highlighted • Click legend to focus`;
+            document.getElementById('compareButton').classList.add('active');
+            document.getElementById('compareText').textContent = 'Single View';
+            document.getElementById('trendStats').classList.remove('show');
+            document.getElementById('legendContainer').classList.add('show');
+            document.getElementById('yearFilter').classList.add('show');
+            
+            // 创建对比图
+            createCompareChart();
+        }
+
+        // 更新趋势图UI
+        function updateTrendUI(persona) {
+            document.getElementById('chartTitle').textContent = `${persona.label} Trend Over Time`;
+            document.getElementById('chartSubtitle').textContent = `${persona.total_reviews.toLocaleString()} total reviews • ${persona.avg_percentage}% average share`;
+            document.getElementById('backButton').style.display = 'block';
+            document.getElementById('compareButton').style.display = 'block';
+            document.getElementById('compareButton').classList.remove('active');
+            document.getElementById('compareText').textContent = 'Compare All';
+            document.getElementById('personaIcons').style.display = 'none';
+            document.getElementById('legendContainer').classList.remove('show');
+            document.getElementById('yearFilter').classList.add('show');
+            
+            // 生成年份选择器
+            generateYearFilter();
+        }
+
+        // 生成画像图标
+        function generatePersonaIcons() {
+            const iconContainer = document.getElementById('personaIcons');
+            iconContainer.innerHTML = '';
+            
+            pieData.data.forEach((item, index) => {
+                const config = personaConfig[item.raw_persona];
+                if (config) {
+                    const iconDiv = document.createElement('div');
+                    iconDiv.className = 'persona-icon';
+                    iconDiv.style.backgroundColor = config.color + '20';
+                    iconDiv.style.color = config.color;
+                    iconDiv.dataset.index = index;
+                    iconDiv.dataset.persona = item.raw_persona;
+                    
+                    iconDiv.innerHTML = `
+                        <i class="${config.icon}"></i>
+                        <span>${config.label.replace(' ', '<br>')}</span>
+                    `;
+                    
+                    iconDiv.addEventListener('click', () => {
+                        showTrendChart(item.raw_persona);
+                    });
+                    
+                    iconContainer.appendChild(iconDiv);
+                }
+            });
+        }
+
+        // 创建饼图
+        function createPieChart() {
+            const ctx = document.getElementById('mainChart').getContext('2d');
+            
+            // 销毁现有图表
+            if (currentChart) {
+                currentChart.destroy();
+            }
+            
+            // 获取配置的颜色
+            const colors = pieData.data.map(item => {
+                const config = personaConfig[item.raw_persona];
+                return config ? config.color : '#95a5a6';
+            });
+            
+            currentChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: pieData.data.map(item => item.label),
+                    datasets: [{
+                        data: pieData.data.map(item => item.value),
+                        backgroundColor: colors,
+                        borderWidth: 3,
+                        borderColor: '#ffffff',
+                        hoverBorderWidth: 4,
+                        hoverBorderColor: '#2c3e50',
+                        hoverBackgroundColor: colors.map(color => color + 'CC')
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(44, 62, 80, 0.95)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#ffffff',
+                            borderColor: '#3498db',
+                            borderWidth: 1,
+                            cornerRadius: 8,
+                            displayColors: true,
+                            callbacks: {
+                                label: function(context) {
+                                    const item = pieData.data[context.dataIndex];
+                                    return [
+                                        `${item.label}`,
+                                        `${item.value.toLocaleString()} reviews`,
+                                        `${item.percentage}% of total`,
+                                        'Click to see trend'
+                                    ];
+                                }
+                            }
+                        }
+                    },
+                    onHover: (event, activeElements) => {
+                        event.native.target.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+                        
+                        if (activeElements.length > 0) {
+                            highlightIcon(activeElements[0].index);
+                        } else {
+                            clearIconHighlight();
+                        }
+                    },
+                    onClick: (event, activeElements) => {
+                        if (activeElements.length > 0) {
+                            const clickedIndex = activeElements[0].index;
+                            const clickedPersona = pieData.data[clickedIndex];
+                            showTrendChart(clickedPersona.raw_persona);
+                        }
+                    }
+                }
+            });
+        }
+
+        // 创建单趋势图
+        function createSingleTrendChart(persona) {
+            const ctx = document.getElementById('mainChart').getContext('2d');
+            
+            // 销毁现有图表
+            if (currentChart) {
+                currentChart.destroy();
+            }
+            
+            const config = personaConfig[persona.raw_persona];
+            const color = config ? config.color : '#3498db';
+            
+            // 筛选数据
+            const filteredData = filterDataByYears(persona.data);
+            
+            currentChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: filteredData.map(item => item.date),
+                    datasets: [{
+                        label: persona.label,
+                        data: filteredData.map(item => item.count),
+                        borderColor: color,
+                        backgroundColor: color + '20',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: color,
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(44, 62, 80, 0.95)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#ffffff',
+                            borderColor: color,
+                            borderWidth: 1,
+                            cornerRadius: 8,
+                            callbacks: {
+                                title: function(context) {
+                                    return context[0].label;
+                                },
+                                label: function(context) {
+                                    const dataPoint = filteredData[context.dataIndex];
+                                    return [
+                                        `${dataPoint.count} reviews`,
+                                        `${dataPoint.percentage}% of month`,
+                                        `Total that month: ${dataPoint.total_reviews}`
+                                    ];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Month'
+                            },
+                            ticks: {
+                                maxTicksLimit: 12,
+                                callback: function(value, index, values) {
+                                    const date = this.getLabelForValue(value);
+                                    const [year, month] = date.split('-');
+                                    return index % Math.ceil(values.length / 8) === 0 ? `${month}/${year.slice(2)}` : '';
+                                }
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Reviews'
+                            },
+                            beginAtZero: true
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    }
+                }
+            });
+        }
+
+        // 创建对比图
+        function createCompareChart() {
+            const ctx = document.getElementById('mainChart').getContext('2d');
+            
+            // 销毁现有图表
+            if (currentChart) {
+                currentChart.destroy();
+            }
+            
+            // 准备所有画像的数据
+            const datasets = [];
+            const allPersonas = Object.keys(trendData.personas);
+            
+            // 获取筛选后的标签（所有画像共享相同的日期）
+            const referencePersona = trendData.personas[currentPersona];
+            const filteredLabels = filterDataByYears(referencePersona.data).map(item => item.date);
+            
+            allPersonas.forEach(personaKey => {
+                const persona = trendData.personas[personaKey];
+                const config = personaConfig[personaKey];
+                const isHighlighted = personaKey === currentPersona;
+                
+                // 筛选该画像的数据
+                const filteredData = filterDataByYears(persona.data);
+                
+                datasets.push({
+                    label: persona.label,
+                    data: filteredData.map(item => item.count),
+                    borderColor: config.color,
+                    backgroundColor: config.color + (isHighlighted ? '20' : '10'),
+                    borderWidth: isHighlighted ? 4 : 2,
+                    fill: isHighlighted,
+                    tension: 0.4,
+                    pointBackgroundColor: config.color,
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: isHighlighted ? 2 : 1,
+                    pointRadius: isHighlighted ? 4 : 2,
+                    pointHoverRadius: 6,
+                    order: isHighlighted ? 0 : 1
+                });
+            });
+            
+            currentChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: filteredLabels,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(44, 62, 80, 0.95)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#ffffff',
+                            borderWidth: 1,
+                            cornerRadius: 8,
+                            callbacks: {
+                                title: function(context) {
+                                    return context[0].label;
+                                },
+                                label: function(context) {
+                                    const personaKey = allPersonas[context.datasetIndex];
+                                    const persona = trendData.personas[personaKey];
+                                    const filteredPersonaData = filterDataByYears(persona.data);
+                                    const dataPoint = filteredPersonaData[context.dataIndex];
+                                    return [
+                                        `${persona.label}: ${dataPoint.count} reviews`,
+                                        `${dataPoint.percentage}% of month`
+                                    ];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Month'
+                            },
+                            ticks: {
+                                maxTicksLimit: 12,
+                                callback: function(value, index, values) {
+                                    const date = this.getLabelForValue(value);
+                                    const [year, month] = date.split('-');
+                                    return index % Math.ceil(values.length / 8) === 0 ? `${month}/${year.slice(2)}` : '';
+                                }
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Reviews'
+                            },
+                            beginAtZero: true
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    }
+                }
+            });
+            
+            // 生成自定义图例
+            generateCompareLegend();
+        }
+
+        // 生成对比图例
+        function generateCompareLegend() {
+            const legendContainer = document.getElementById('legendContainer');
+            legendContainer.innerHTML = '<div style="text-align: center; margin-bottom: 10px; font-weight: bold; font-size: 12px;">Click personas to highlight:</div>';
+            
+            Object.keys(trendData.personas).forEach(personaKey => {
+                const persona = trendData.personas[personaKey];
+                const config = personaConfig[personaKey];
+                const isHighlighted = personaKey === currentPersona;
+                
+                const legendItem = document.createElement('div');
+                legendItem.className = `legend-item ${isHighlighted ? 'highlighted' : 'dimmed'}`;
+                legendItem.dataset.persona = personaKey;
+                
+                legendItem.innerHTML = `
+                    <div class="legend-color" style="background-color: ${config.color}"></div>
+                    <span>${persona.label}</span>
+                `;
+                
+                legendItem.addEventListener('click', () => {
+                    currentPersona = personaKey;
+                    createCompareChart();
+                });
+                
+                legendContainer.appendChild(legendItem);
+            });
+        }
+
+        // 显示趋势统计
+        function showTrendStats(persona) {
+            const statsDiv = document.getElementById('trendStats');
+            statsDiv.innerHTML = `
+                <div style="display: flex; justify-content: space-around; text-align: center;">
+                    <div>
+                        <strong>Peak Month</strong><br>
+                        ${persona.peak_month.date}<br>
+                        ${persona.peak_month.count} reviews
+                    </div>
+                    <div>
+                        <strong>Average</strong><br>
+                        ${persona.avg_percentage}%<br>
+                        monthly share
+                    </div>
+                    <div>
+                        <strong>Total</strong><br>
+                        ${persona.total_reviews.toLocaleString()}<br>
+                        reviews
+                    </div>
+                </div>
+            `;
+            statsDiv.classList.add('show');
+        }
+
+        // 高亮图标
+        function highlightIcon(index) {
+            clearIconHighlight();
+            const icons = document.querySelectorAll('.persona-icon');
+            if (icons[index]) {
+                icons[index].classList.add('active');
+            }
+        }
+
+        // 清除图标高亮
+        function clearIconHighlight() {
+            document.querySelectorAll('.persona-icon').forEach(icon => {
+                icon.classList.remove('active');
+            });
+        }
+
+        // 页面加载完成后初始化
+        window.addEventListener('load', init);
+
+        // 提取可用年份
+        function extractAvailableYears() {
+            const yearsSet = new Set();
+            
+            // 从任一画像的数据中提取年份
+            const firstPersona = Object.values(trendData.personas)[0];
+            firstPersona.data.forEach(item => {
+                const year = parseInt(item.date.split('-')[0]);
+                yearsSet.add(year);
+            });
+            
+            availableYears = Array.from(yearsSet).sort((a, b) => a - b);
+            console.log('Available years:', availableYears);
+        }
+
+        // 生成年份筛选器
+        function generateYearFilter() {
+            const yearButtons = document.getElementById('yearButtons');
+            yearButtons.innerHTML = '';
+            
+            availableYears.forEach(year => {
+                const button = document.createElement('button');
+                button.className = `year-btn ${selectedYears.has(year) ? 'active' : ''}`;
+                button.textContent = year;
+                button.onclick = () => toggleYear(year);
+                yearButtons.appendChild(button);
+            });
+            
+            updateYearRangeInfo();
+        }
+
+        // 切换年份选择
+        function toggleYear(year) {
+            if (selectedYears.has(year)) {
+                selectedYears.delete(year);
+            } else {
+                selectedYears.add(year);
+            }
+            
+            // 更新按钮状态
+            const button = event.target;
+            button.classList.toggle('active');
+            
+            // 重新绘制图表
+            if (currentView === 'trend') {
+                createSingleTrendChart(trendData.personas[currentPersona]);
+            } else if (currentView === 'compare') {
+                createCompareChart();
+            }
+            
+            updateYearRangeInfo();
+        }
+
+        // 快速筛选
+        function selectQuickFilter(type) {
+            // 移除所有快速筛选按钮的active状态
+            document.querySelectorAll('.quick-filter-btn').forEach(btn => btn.classList.remove('active'));
+            
+            switch(type) {
+                case 'recent3':
+                    const recent3Years = availableYears.slice(-3);
+                    selectedYears = new Set(recent3Years);
+                    event.target.classList.add('active');
+                    break;
+                    
+                case 'recent5':
+                    const recent5Years = availableYears.slice(-5);
+                    selectedYears = new Set(recent5Years);
+                    event.target.classList.add('active');
+                    break;
+                    
+                case 'all':
+                    selectedYears = new Set(availableYears);
+                    event.target.classList.add('active');
+                    break;
+                    
+                case 'clear':
+                    selectedYears = new Set();
+                    event.target.classList.add('active');
+                    break;
+            }
+            
+            // 更新年份按钮状态
+            generateYearFilter();
+            
+            // 重新绘制图表
+            if (currentView === 'trend') {
+                createSingleTrendChart(trendData.personas[currentPersona]);
+            } else if (currentView === 'compare') {
+                createCompareChart();
+            }
+        }
+
+        // 更新年份范围信息
+        function updateYearRangeInfo() {
+            const info = document.getElementById('yearRangeInfo');
+            const selectedYearsArray = Array.from(selectedYears).sort((a, b) => a - b);
+            
+            if (selectedYearsArray.length === 0) {
+                info.textContent = 'No years selected';
+            } else if (selectedYearsArray.length === availableYears.length) {
+                info.textContent = `All years selected (${selectedYearsArray[0]} - ${selectedYearsArray[selectedYearsArray.length - 1]})`;
+            } else {
+                info.textContent = `${selectedYearsArray.length} years selected: ${selectedYearsArray.join(', ')}`;
+            }
+        }
+
+        // 筛选数据基于选中的年份
+        function filterDataByYears(data) {
+            if (selectedYears.size === 0) return [];
+            
+            return data.filter(item => {
+                const year = parseInt(item.date.split('-')[0]);
+                return selectedYears.has(year);
+            });
+        }
+    </script>
+</body>
+</html>

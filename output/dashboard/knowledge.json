@@ -1,0 +1,47 @@
+{
+  "USS_Attractions": {
+    "ride": [
+      { "rank": 1, "name": "revenge of the mummy" },
+      { "rank": 2, "name": "transformers the ride the ultimate 3d battle" },
+      { "rank": 3, "name": "jurassic park rapids adventure" },
+      { "rank": 4, "name": "battlestar galactica human" },
+      { "rank": 5, "name": "canopy flyer" },
+      { "rank": 6, "name": "battlestar galactica cylon" },
+      { "rank": 7, "name": "sesame street spaghetti space chase" },
+      { "rank": 8, "name": "sesame street goes bollywood" },
+      { "rank": 9, "name": "despicable me minion mayhem" },
+      { "rank": 10, "name": "treasure hunters" }
+    ],
+    "show": [
+      { "rank": 1, "name": "lights camera action" },
+      { "rank": 2, "name": "transformers voices of cybertron" },
+      { "rank": 3, "name": "shrek 4 d adventure" },
+      { "rank": 4, "name": "waterworld" },
+      { "rank": 5, "name": "lake hollywood spectacular" },
+      { "rank": 6, "name": "pantages hollywood theater trolls hug time jubilee" },
+      { "rank": 7, "name": "minute of minion mayhem" },
+      { "rank": 8, "name": "minion dance party" },
+      { "rank": 9, "name": "sesame street" }
+    ],
+    "food": [
+      { "rank": 1, "name": "jungle bites" },
+      { "rank": 2, "name": "planet yen" },
+      { "rank": 3, "name": "discovery food court" },
+      { "rank": 4, "name": "friar s good food" },
+      { "rank": 5, "name": "super hungry food stand" },
+      { "rank": 6, "name": "kt s grill" },
+      { "rank": 7, "name": "mel s drive in" },
+      { "rank": 8, "name": "me want cookie" }
+    ]
+  },
+  "Top_Complaints": [
+    "A Small Theme Park",
+    "Endless Queuing",
+    "Ridiculous Rides",
+    "Inadequate Staff",
+    "An Insulting Price",
+    "The Intense Crowding",
+    "The filthy toilets",
+    "Limited food venue"
+  ]
+}

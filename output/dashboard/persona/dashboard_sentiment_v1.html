@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>USS Persona Interactive Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            min-height: 450px;
+        }
+        .button-container {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+        .back-button, .sentiment-toggle-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            display: none;
+        }
+        .back-button:hover, .sentiment-toggle-button:hover {
+            background: #2980b9;
+            transform: translateY(-1px);
+        }
+        .sentiment-toggle-button {
+            background: #e74c3c;
+        }
+        .sentiment-toggle-button:hover {
+            background: #c0392b;
+        }
+        .sentiment-toggle-button.active {
+            background: #27ae60;
+        }
+        .sentiment-toggle-button.active:hover {
+            background: #229954;
+        }
+        .persona-icons {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+            transition: opacity 0.3s ease;
+        }
+        .persona-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            opacity: 0.7;
+            min-width: 60px;
+        }
+        .persona-icon:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .persona-icon.active {
+            opacity: 1;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .persona-icon i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+        .persona-icon span {
+            font-size: 10px;
+            text-align: center;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+        .chart-container { 
+            width: 100%; 
+            height: 350px; 
+            margin: 0 auto;
+            position: relative;
+            transition: all 0.5s ease;
+            margin-top: 40px;
+        }
+        .pie-container {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+        .trend-container {
+            width: 100%;
+            height: 400px;
+        }
+        .chart-title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 40px;
+        }
+        .chart-subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+        .trend-stats {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 8px;
+            font-size: 12px;
+            color: #2c3e50;
+        }
+        .trend-stats.show {
+            display: block;
+        }
+        .loading {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        /* Sentiment tooltip styles */
+        .sentiment-tooltip {
+            position: absolute;
+            background: rgba(44, 62, 80, 0.95);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            min-width: 200px;
+            display: none;
+        }
+        
+        .sentiment-distribution {
+            margin-top: 8px;
+        }
+        
+        .sentiment-bar {
+            display: flex;
+            align-items: center;
+            margin: 2px 0;
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 3px;
+            transition: background-color 0.2s ease;
+        }
+        
+        .sentiment-bar:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sentiment-bar-fill {
+            height: 12px;
+            border-radius: 2px;
+            margin: 0 8px;
+            min-width: 2px;
+        }
+        
+        .sentiment-negative { background: linear-gradient(90deg, #e74c3c, #c0392b); }
+        .sentiment-neutral { background: linear-gradient(90deg, #f39c12, #e67e22); }
+        .sentiment-positive { background: linear-gradient(90deg, #27ae60, #229954); }
+        
+        /* Review modal styles */
+        .review-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+        
+        .review-modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 12px;
+            width: 80%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .review-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        
+        .review-modal-title {
+            color: #2c3e50;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #7f8c8d;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        
+        .modal-close:hover {
+            color: #e74c3c;
+        }
+        
+        .review-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 10px 0;
+            border-left: 4px solid #3498db;
+        }
+        
+        .review-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 11px;
+            color: #7f8c8d;
+        }
+        
+        .review-confidence {
+            background: #3498db;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+        
+        .review-text {
+            color: #2c3e50;
+            font-size: 13px;
+            line-height: 1.4;
+            margin: 0;
+        }
+        
+        .year-filter {
+            display: none;
+            text-align: center;
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .year-filter.show {
+            display: block;
+        }
+        .year-filter-title {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        .year-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+        .year-btn {
+            background: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            color: #2c3e50;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.2s ease;
+            min-width: 35px;
+        }
+        .year-btn:hover {
+            background: #d5dbdb;
+        }
+        .year-btn.active {
+            background: #3498db;
+            color: white;
+            border-color: #2980b9;
+        }
+        .year-range-info {
+            font-size: 10px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        .quick-filters {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .quick-filter-btn {
+            background: #95a5a6;
+            color: white;
+            border: none;
+            padding: 3px 8px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 10px;
+            transition: all 0.2s ease;
+        }
+        .quick-filter-btn:hover {
+            background: #7f8c8d;
+        }
+        .quick-filter-btn.active {
+            background: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-card">
+        <div class="button-container">
+            <button class="back-button" id="backButton" onclick="showPieChart()">
+                <i class="fas fa-arrow-left"></i> Back to Overview
+            </button>
+            <button class="sentiment-toggle-button" id="sentimentToggleButton" onclick="toggleSentimentView()">
+                <i class="fas fa-heart"></i> <span id="sentimentToggleText">Show Sentiment</span>
+            </button>
+        </div>
+        
+        <h2 class="chart-title" id="chartTitle">Loading...</h2>
+        <p class="chart-subtitle" id="chartSubtitle">Loading data...</p>
+        
+        <div class="persona-icons" id="personaIcons"></div>
+        
+        <div class="chart-container" id="chartContainer">
+            <canvas id="mainChart"></canvas>
+        </div>
+        
+        <div class="year-filter" id="yearFilter">
+            <div class="year-filter-title">Select Years to Display</div>
+            <div class="year-buttons" id="yearButtons"></div>
+            <div class="quick-filters">
+                <button class="quick-filter-btn" onclick="selectQuickFilter('recent3')">Last 3 Years</button>
+                <button class="quick-filter-btn" onclick="selectQuickFilter('recent5')">Last 5 Years</button>
+                <button class="quick-filter-btn active" onclick="selectQuickFilter('all')">All Years</button>
+                <button class="quick-filter-btn" onclick="selectQuickFilter('clear')">Clear All</button>
+            </div>
+            <div class="year-range-info" id="yearRangeInfo"></div>
+        </div>
+        
+        <div class="trend-stats" id="trendStats"></div>
+    </div>
+
+    <div class="sentiment-tooltip" id="sentimentTooltip"></div>
+
+    <div class="review-modal" id="reviewModal">
+        <div class="review-modal-content">
+            <div class="review-modal-header">
+                <h3 class="review-modal-title" id="reviewModalTitle">Reviews</h3>
+                <button class="modal-close" onclick="closeReviewModal()">&times;</button>
+            </div>
+            <div id="reviewModalContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const personaConfig = {
+            'experience_focused': { icon: 'fas fa-star', color: '#FF6B9D', label: 'Experience Focused' },
+            'families': { icon: 'fas fa-users', color: '#45B7D1', label: 'Families' },
+            'international_tourists': { icon: 'fas fa-globe', color: '#4ECDC4', label: 'International Tourists' },
+            'premium_visitors': { icon: 'fas fa-crown', color: '#96CEB4', label: 'Premium Visitors' },
+            'thrill_seekers': { icon: 'fas fa-bolt', color: '#DDA0DD', label: 'Thrill Seekers' },
+            'budget_conscious': { icon: 'fas fa-piggy-bank', color: '#FFEAA7', label: 'Budget Conscious' }
+        };
+
+        const sentimentConfig = {
+            0: { label: 'Negative', color: '#e74c3c', icon: '😞' },
+            1: { label: 'Neutral', color: '#f39c12', icon: '😐' },
+            2: { label: 'Positive', color: '#27ae60', icon: '😊' }
+        };
+
+        let currentChart = null;
+        let pieData = null;
+        let integratedData = null;
+        let currentView = 'pie';
+        let currentPersona = null;
+        let showingSentiment = false;
+        let selectedYears = new Set();
+        let availableYears = [];
+
+        const pieJsonPath = './persona_distribution_pie_chart_threshold_0.5_with_sentiment.json';
+        const integratedJsonPath = './integrated_persona_analysis_threshold_0.5_with_sentiment.json';
+
+        async function init() {
+            try {
+                const [pieResponse, integratedResponse] = await Promise.all([
+                    fetch(pieJsonPath),
+                    fetch(integratedJsonPath)
+                ]);
+
+                if (!pieResponse.ok || !integratedResponse.ok) {
+                    throw new Error('Failed to load data files');
+                }
+
+                pieData = await pieResponse.json();
+                integratedData = await integratedResponse.json();
+
+                console.log('Data loaded successfully');
+                extractAvailableYears();
+                selectedYears = new Set(availableYears);
+                showPieChart();
+                
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.getElementById('chartTitle').textContent = 'Error Loading Data';
+                document.getElementById('chartSubtitle').textContent = 'Please check the JSON files and try again.';
+            }
+        }
+
+        function showPieChart() {
+            currentView = 'pie';
+            currentPersona = null;
+            showingSentiment = false;
+            
+            document.getElementById('chartTitle').textContent = pieData.title;
+            document.getElementById('chartSubtitle').textContent = pieData.subtitle;
+            document.getElementById('backButton').style.display = 'none';
+            document.getElementById('sentimentToggleButton').style.display = 'none';
+            document.getElementById('personaIcons').style.display = 'flex';
+            document.getElementById('trendStats').classList.remove('show');
+            document.getElementById('yearFilter').classList.remove('show');
+            
+            const container = document.getElementById('chartContainer');
+            container.className = 'chart-container pie-container';
+            
+            generatePersonaIcons();
+            createPieChart();
+        }
+
+        function showTrendChart(personaKey) {
+            currentView = 'trend';
+            currentPersona = personaKey;
+            showingSentiment = false;
+            
+            const persona = integratedData.personas[personaKey];
+            if (!persona) {
+                console.error('Persona not found:', personaKey);
+                return;
+            }
+            
+            updateTrendUI(persona);
+            
+            const container = document.getElementById('chartContainer');
+            container.className = 'chart-container trend-container';
+            
+            createTrendChart(persona);
+            showTrendStats(persona);
+        }
+
+        function toggleSentimentView() {
+            if (!currentPersona) return;
+            
+            showingSentiment = !showingSentiment;
+            
+            if (showingSentiment) {
+                currentView = 'sentiment-trend';
+                showSentimentTrendChart();
+            } else {
+                currentView = 'trend';
+                showTrendChart(currentPersona);
+            }
+        }
+
+        function showSentimentTrendChart() {
+            const persona = integratedData.personas[currentPersona];
+            
+            document.getElementById('chartTitle').textContent = `${persona.label} - Average Sentiment Trend`;
+            document.getElementById('chartSubtitle').textContent = `Monthly sentiment analysis • Hover for details • Click for reviews`;
+            document.getElementById('sentimentToggleButton').classList.add('active');
+            document.getElementById('sentimentToggleText').textContent = 'Show Volume';
+            
+            createSentimentTrendChart(persona);
+        }
+
+        function createSentimentTrendChart(persona) {
+            const ctx = document.getElementById('mainChart').getContext('2d');
+            
+            if (currentChart) {
+                currentChart.destroy();
+            }
+            
+            const config = personaConfig[persona.raw_persona];
+            const color = config ? config.color : '#3498db';
+            
+            const filteredData = filterDataByYears(persona.monthly_data);
+            
+            console.log('Sample month data for sentiment chart:', filteredData[0]);
+            console.log('Available fields:', filteredData[0] ? Object.keys(filteredData[0]) : 'No data');
+            
+            currentChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: filteredData.map(item => item.date),
+                    datasets: [{
+                        label: `${persona.label} Sentiment`,
+                        data: filteredData.map(item => item.avg_sentiment || 0),
+                        borderColor: color,
+                        backgroundColor: color + '20',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: color,
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false }
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            title: { display: true, text: 'Month' }
+                        },
+                        y: {
+                            display: true,
+                            title: { display: true, text: 'Average Sentiment' },
+                            min: 0,
+                            max: 2,
+                            ticks: {
+                                stepSize: 0.5,
+                                callback: function(value) {
+                                    const labels = {0: 'Negative', 0.5: '0.5', 1: 'Neutral', 1.5: '1.5', 2: 'Positive'};
+                                    return labels[value] || value;
+                                }
+                            }
+                        }
+                    },
+                    onHover: (event, activeElements) => {
+                        const canvas = event.chart.canvas;
+                        canvas.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+                        
+                        if (activeElements.length > 0) {
+                            const dataIndex = activeElements[0].index;
+                            const monthData = filteredData[dataIndex];
+                            showSentimentTooltip(event.native, monthData, persona.raw_persona);
+                        } else {
+                            hideSentimentTooltip();
+                        }
+                    },
+                    onClick: (event, activeElements) => {
+                        if (activeElements.length > 0) {
+                            const dataIndex = activeElements[0].index;
+                            const monthData = filteredData[dataIndex];
+                            showMonthReviewSelector(monthData, currentPersona, persona.label);
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    }
+                }
+            });
+            
+            const canvas = document.getElementById('mainChart');
+            canvas.addEventListener('mouseleave', () => {
+                hideSentimentTooltip();
+            });
+        }
+
+        function updateTrendUI(persona) {
+            document.getElementById('chartTitle').textContent = `${persona.label} - Review Volume Trend`;
+            document.getElementById('chartSubtitle').textContent = `${persona.total_reviews.toLocaleString()} total reviews • ${persona.overall_avg_sentiment} avg sentiment • Hover for details`;
+            document.getElementById('backButton').style.display = 'block';
+            document.getElementById('sentimentToggleButton').style.display = 'block';
+            document.getElementById('sentimentToggleButton').classList.remove('active');
+            document.getElementById('sentimentToggleText').textContent = 'Show Sentiment';
+            document.getElementById('personaIcons').style.display = 'none';
+            document.getElementById('yearFilter').classList.add('show');
+            
+            generateYearFilter();
+        }
+
+        function generatePersonaIcons() {
+            const iconContainer = document.getElementById('personaIcons');
+            iconContainer.innerHTML = '';
+            
+            pieData.data.forEach((item, index) => {
+                const config = personaConfig[item.raw_persona];
+                if (config) {
+                    const iconDiv = document.createElement('div');
+                    iconDiv.className = 'persona-icon';
+                    iconDiv.style.backgroundColor = config.color + '20';
+                    iconDiv.style.color = config.color;
+                    iconDiv.dataset.index = index;
+                    iconDiv.dataset.persona = item.raw_persona;
+                    
+                    iconDiv.innerHTML = `
+                        <i class="${config.icon}"></i>
+                        <span>${config.label.replace(' ', '<br>')}</span>
+                    `;
+                    
+                    iconDiv.addEventListener('click', () => {
+                        showTrendChart(item.raw_persona);
+                    });
+                    
+                    iconContainer.appendChild(iconDiv);
+                }
+            });
+        }
+
+        function createPieChart() {
+            const ctx = document.getElementById('mainChart').getContext('2d');
+            
+            if (currentChart) {
+                currentChart.destroy();
+            }
+            
+            const colors = pieData.data.map(item => {
+                const config = personaConfig[item.raw_persona];
+                return config ? config.color : '#95a5a6';
+            });
+            
+            currentChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: pieData.data.map(item => item.label),
+                    datasets: [{
+                        data: pieData.data.map(item => item.value),
+                        backgroundColor: colors,
+                        borderWidth: 3,
+                        borderColor: '#ffffff',
+                        hoverBorderWidth: 4,
+                        hoverBorderColor: '#2c3e50',
+                        hoverBackgroundColor: colors.map(color => color + 'CC')
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(44, 62, 80, 0.95)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#ffffff',
+                            borderColor: '#3498db',
+                            borderWidth: 1,
+                            cornerRadius: 8,
+                            displayColors: true,
+                            callbacks: {
+                                label: function(context) {
+                                    const item = pieData.data[context.dataIndex];
+                                    return [
+                                        `${item.label}`,
+                                        `${item.value.toLocaleString()} reviews`,
+                                        `${item.percentage}% of total`,
+                                        `${item.avg_stars} ⭐ avg stars`,
+                                        `${item.avg_sentiment} avg sentiment`,
+                                        'Click to see trend'
+                                    ];
+                                }
+                            }
+                        }
+                    },
+                    onHover: (event, activeElements) => {
+                        event.native.target.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+                        
+                        if (activeElements.length > 0) {
+                            highlightIcon(activeElements[0].index);
+                        } else {
+                            clearIconHighlight();
+                        }
+                    },
+                    onClick: (event, activeElements) => {
+                        if (activeElements.length > 0) {
+                            const clickedIndex = activeElements[0].index;
+                            const clickedPersona = pieData.data[clickedIndex];
+                            showTrendChart(clickedPersona.raw_persona);
+                        }
+                    }
+                }
+            });
+        }
+
+        function createTrendChart(persona) {
+            const ctx = document.getElementById('mainChart').getContext('2d');
+            
+            if (currentChart) {
+                currentChart.destroy();
+            }
+            
+            const config = personaConfig[persona.raw_persona];
+            const color = config ? config.color : '#3498db';
+            
+            const filteredData = filterDataByYears(persona.monthly_data);
+            
+            currentChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: filteredData.map(item => item.date),
+                    datasets: [{
+                        label: persona.label,
+                        data: filteredData.map(item => item.review_count),
+                        borderColor: color,
+                        backgroundColor: color + '20',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: color,
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false }
+                    },
+                    scales: {
+                        x: { display: true, title: { display: true, text: 'Month' } },
+                        y: { display: true, title: { display: true, text: 'Number of Reviews' }, beginAtZero: true }
+                    },
+                    onHover: (event, activeElements) => {
+                        const canvas = event.chart.canvas;
+                        canvas.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+                        
+                        if (activeElements.length > 0) {
+                            const dataIndex = activeElements[0].index;
+                            const monthData = filteredData[dataIndex];
+                            showSentimentTooltip(event.native, monthData, persona.raw_persona);
+                        } else {
+                            hideSentimentTooltip();
+                        }
+                    },
+                    onClick: (event, activeElements) => {
+                        if (activeElements.length > 0) {
+                            const dataIndex = activeElements[0].index;
+                            const monthData = filteredData[dataIndex];
+                            showMonthReviewSelector(monthData, currentPersona, persona.label);
+                        }
+                    },
+                    interaction: { intersect: false, mode: 'index' }
+                }
+            });
+            
+            const canvas = document.getElementById('mainChart');
+            canvas.addEventListener('mouseleave', () => {
+                hideSentimentTooltip();
+            });
+        }
+
+        function showSentimentTooltip(event, monthData, personaKey) {
+            const tooltip = document.getElementById('sentimentTooltip');
+            
+            let tooltipContent = `
+                <div style="font-weight: bold; margin-bottom: 8px;">${monthData.date}</div>
+                <div>Reviews: ${monthData.review_count}</div>
+                <div>Avg Sentiment: ${monthData.avg_sentiment}</div>
+                <div class="sentiment-distribution">
+            `;
+            
+            Object.entries(monthData.sentiment_distribution).forEach(([sentimentVal, data]) => {
+                const percentage = data.percentage;
+                const sentimentInfo = sentimentConfig[parseInt(sentimentVal)];
+                const colorClass = `sentiment-${sentimentInfo.label.toLowerCase()}`;
+                
+                tooltipContent += `
+                    <div class="sentiment-bar" onclick="showReviews('${personaKey}', '${monthData.date}', ${sentimentVal})">
+                        <span style="width: 60px;">${sentimentInfo.icon} ${sentimentInfo.label}</span>
+                        <div class="sentiment-bar-fill ${colorClass}" style="width: ${percentage * 2}px;"></div>
+                        <span style="margin-left: 8px;">${data.count} (${percentage}%)</span>
+                    </div>
+                `;
+            });
+            
+            tooltipContent += '</div><div style="margin-top: 8px; font-size: 10px; color: #bdc3c7;">Click sentiment to see reviews</div>';
+            
+            tooltip.innerHTML = tooltipContent;
+            
+            const x = event.pageX + 10;
+            const y = event.pageY - 10;
+            
+            tooltip.style.left = `${x}px`;
+            tooltip.style.top = `${y}px`;
+            tooltip.style.display = 'block';
+        }
+
+        function showMonthReviewSelector(monthData, personaKey, personaLabel) {
+            console.log('showMonthReviewSelector called:', { monthData, personaKey, personaLabel });
+            
+            const modal = document.getElementById('reviewModal');
+            const modalTitle = document.getElementById('reviewModalTitle');
+            const modalContent = document.getElementById('reviewModalContent');
+            
+            modalTitle.textContent = `${personaLabel} Reviews - ${monthData.date}`;
+            
+            let selectorHtml = `
+                <div style="margin-bottom: 15px; text-align: center;">
+                    <strong>Select a sentiment to view reviews:</strong>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+            `;
+            
+            Object.entries(monthData.sentiment_distribution).forEach(([sentimentVal, data]) => {
+                if (data.count > 0) {
+                    const sentimentInfo = sentimentConfig[parseInt(sentimentVal)];
+                    selectorHtml += `
+                        <button style="
+                            background: ${sentimentInfo.color}; 
+                            color: white; 
+                            border: none; 
+                            padding: 10px 15px; 
+                            border-radius: 8px; 
+                            cursor: pointer;
+                            font-size: 14px;
+                            transition: background-color 0.2s;
+                        " onclick="showReviews('${personaKey}', '${monthData.date}', '${sentimentVal}')"
+                        onmouseover="this.style.opacity='0.8'"
+                        onmouseout="this.style.opacity='1'">
+                            ${sentimentInfo.icon} ${sentimentInfo.label}<br>
+                            <small>${data.count} reviews</small>
+                        </button>
+                    `;
+                }
+            });
+            
+            selectorHtml += '</div>';
+            
+            modalContent.innerHTML = selectorHtml;
+            modal.style.display = 'block';
+        }
+
+        function hideSentimentTooltip() {
+            document.getElementById('sentimentTooltip').style.display = 'none';
+        }
+
+        function showReviews(personaKey, monthDate, sentimentValue) {
+            console.log('showReviews called:', { personaKey, monthDate, sentimentValue });
+            
+            if (!integratedData || !integratedData.personas) {
+                alert('Integrated data not loaded. Please check if the JSON file exists.');
+                return;
+            }
+            
+            const persona = integratedData.personas[personaKey];
+            if (!persona) {
+                console.error('Persona not found:', personaKey);
+                alert(`Persona '${personaKey}' not found.`);
+                return;
+            }
+            
+            const monthData = persona.monthly_data.find(m => m.date === monthDate);
+            if (!monthData) {
+                console.error('Month data not found:', monthDate);
+                alert('Month data not found.');
+                return;
+            }
+            
+            if (!monthData.top_reviews_by_sentiment || !monthData.top_reviews_by_sentiment[sentimentValue]) {
+                console.error('No reviews found for sentiment:', sentimentValue);
+                alert(`No reviews found for sentiment ${sentimentValue} in ${monthDate}.`);
+                return;
+            }
+            
+            const sentimentData = monthData.top_reviews_by_sentiment[sentimentValue];
+            const reviews = sentimentData.reviews;
+            
+            const modal = document.getElementById('reviewModal');
+            const modalTitle = document.getElementById('reviewModalTitle');
+            const modalContent = document.getElementById('reviewModalContent');
+            
+            const sentimentInfo = sentimentConfig[parseInt(sentimentValue)];
+            modalTitle.textContent = `${sentimentInfo.icon} ${sentimentInfo.label} Reviews - ${persona.label} (${monthDate})`;
+            
+            let reviewsHtml = '';
+            reviews.forEach((review, index) => {
+                reviewsHtml += `
+                    <div class="review-item">
+                        <div class="review-meta">
+                            <span class="review-confidence">Persona: ${review.persona_confidence}</span>
+                            <span class="review-confidence" style="background: ${sentimentInfo.color};">Sentiment: ${review.sentiment_confidence}</span>
+                            <span>ID: ${review.review_index}</span>
+                            <span>${review.published_date}</span>
+                        </div>
+                        <p class="review-text">${review.review_text}</p>
+                    </div>
+                `;
+            });
+            
+            if (reviewsHtml === '') {
+                reviewsHtml = '<div style="text-align: center; color: #7f8c8d;">No reviews available for this sentiment.</div>';
+            }
+            
+            modalContent.innerHTML = reviewsHtml;
+            modal.style.display = 'block';
+            
+            hideSentimentTooltip();
+        }
+
+        function closeReviewModal() {
+            document.getElementById('reviewModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('reviewModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        function showTrendStats(persona) {
+            const statsDiv = document.getElementById('trendStats');
+            
+            const monthlyData = filterDataByYears(persona.monthly_data);
+            const totalReviews = monthlyData.reduce((sum, month) => sum + month.review_count, 0);
+            const avgSentiment = monthlyData.reduce((sum, month) => sum + month.avg_sentiment * month.review_count, 0) / totalReviews;
+            const peakMonth = monthlyData.reduce((max, month) => month.review_count > max.review_count ? month : max, monthlyData[0]);
+            
+            statsDiv.innerHTML = `
+                <div style="display: flex; justify-content: space-around; text-align: center;">
+                    <div>
+                        <strong>Peak Month</strong><br>
+                        ${peakMonth.date}<br>
+                        ${peakMonth.review_count} reviews
+                    </div>
+                    <div>
+                        <strong>Average Sentiment</strong><br>
+                        ${avgSentiment.toFixed(2)}<br>
+                        across ${monthlyData.length} months
+                    </div>
+                    <div>
+                        <strong>Total</strong><br>
+                        ${totalReviews.toLocaleString()}<br>
+                        reviews (filtered)
+                    </div>
+                </div>
+            `;
+            statsDiv.classList.add('show');
+        }
+
+        function highlightIcon(index) {
+            clearIconHighlight();
+            const icons = document.querySelectorAll('.persona-icon');
+            if (icons[index]) {
+                icons[index].classList.add('active');
+            }
+        }
+
+        function clearIconHighlight() {
+            document.querySelectorAll('.persona-icon').forEach(icon => {
+                icon.classList.remove('active');
+            });
+        }
+
+        function extractAvailableYears() {
+            const yearsSet = new Set();
+            
+            Object.values(integratedData.personas).forEach(persona => {
+                persona.monthly_data.forEach(month => {
+                    const year = parseInt(month.date.split('-')[0]);
+                    yearsSet.add(year);
+                });
+            });
+            
+            availableYears = Array.from(yearsSet).sort((a, b) => a - b);
+            console.log('Available years:', availableYears);
+        }
+
+        function generateYearFilter() {
+            const yearButtons = document.getElementById('yearButtons');
+            yearButtons.innerHTML = '';
+            
+            availableYears.forEach(year => {
+                const button = document.createElement('button');
+                button.className = `year-btn ${selectedYears.has(year) ? 'active' : ''}`;
+                button.textContent = year;
+                button.onclick = () => toggleYear(year);
+                yearButtons.appendChild(button);
+            });
+            
+            updateYearRangeInfo();
+        }
+
+        function toggleYear(year) {
+            if (selectedYears.has(year)) {
+                selectedYears.delete(year);
+            } else {
+                selectedYears.add(year);
+            }
+            
+            generateYearFilter();
+            
+            if (currentView === 'trend') {
+                const persona = integratedData.personas[currentPersona];
+                createTrendChart(persona);
+                showTrendStats(persona);
+            } else if (currentView === 'sentiment-trend') {
+                const persona = integratedData.personas[currentPersona];
+                createSentimentTrendChart(persona);
+            }
+        }
+
+        function selectQuickFilter(type) {
+            document.querySelectorAll('.quick-filter-btn').forEach(btn => btn.classList.remove('active'));
+            
+            switch(type) {
+                case 'recent3':
+                    const recent3Years = availableYears.slice(-3);
+                    selectedYears = new Set(recent3Years);
+                    event.target.classList.add('active');
+                    break;
+                    
+                case 'recent5':
+                    const recent5Years = availableYears.slice(-5);
+                    selectedYears = new Set(recent5Years);
+                    event.target.classList.add('active');
+                    break;
+                    
+                case 'all':
+                    selectedYears = new Set(availableYears);
+                    event.target.classList.add('active');
+                    break;
+                    
+                case 'clear':
+                    selectedYears = new Set();
+                    event.target.classList.add('active');
+                    break;
+            }
+            
+            generateYearFilter();
+            
+            if (currentView === 'trend') {
+                const persona = integratedData.personas[currentPersona];
+                createTrendChart(persona);
+                showTrendStats(persona);
+            } else if (currentView === 'sentiment-trend') {
+                const persona = integratedData.personas[currentPersona];
+                createSentimentTrendChart(persona);
+            }
+        }
+
+        function updateYearRangeInfo() {
+            const info = document.getElementById('yearRangeInfo');
+            const selectedYearsArray = Array.from(selectedYears).sort((a, b) => a - b);
+            
+            if (selectedYearsArray.length === 0) {
+                info.textContent = 'No years selected';
+            } else if (selectedYearsArray.length === availableYears.length) {
+                info.textContent = `All years selected (${selectedYearsArray[0]} - ${selectedYearsArray[selectedYearsArray.length - 1]})`;
+            } else {
+                info.textContent = `${selectedYearsArray.length} years selected: ${selectedYearsArray.join(', ')}`;
+            }
+        }
+
+        function filterDataByYears(data) {
+            if (selectedYears.size === 0) return [];
+            
+            return data.filter(item => {
+                const year = parseInt(item.date.split('-')[0]);
+                return selectedYears.has(year);
+            });
+        }
+
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>

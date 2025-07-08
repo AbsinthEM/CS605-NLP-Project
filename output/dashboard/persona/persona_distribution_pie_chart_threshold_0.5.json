@@ -1,0 +1,49 @@
+{
+  "chart_type": "pie",
+  "title": "User Persona Distribution",
+  "subtitle": "Based on 16,936 reviews (confidence >= 0.5)",
+  "data": [
+    {
+      "label": "Experience Focused",
+      "value": 6682,
+      "percentage": 39.5,
+      "avg_rating": 3.52,
+      "raw_persona": "experience_focused"
+    },
+    {
+      "label": "Families",
+      "value": 3055,
+      "percentage": 18.0,
+      "avg_rating": 4.69,
+      "raw_persona": "families"
+    },
+    {
+      "label": "International Tourists",
+      "value": 2552,
+      "percentage": 15.1,
+      "avg_rating": 4.8,
+      "raw_persona": "international_tourists"
+    },
+    {
+      "label": "Premium Visitors",
+      "value": 2104,
+      "percentage": 12.4,
+      "avg_rating": 4.55,
+      "raw_persona": "premium_visitors"
+    },
+    {
+      "label": "Thrill Seekers",
+      "value": 1692,
+      "percentage": 10.0,
+      "avg_rating": 4.76,
+      "raw_persona": "thrill_seekers"
+    },
+    {
+      "label": "Budget Conscious",
+      "value": 851,
+      "percentage": 5.0,
+      "avg_rating": 3.62,
+      "raw_persona": "budget_conscious"
+    }
+  ]
+}

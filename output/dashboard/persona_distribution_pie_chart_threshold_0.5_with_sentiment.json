@@ -1,0 +1,85 @@
+{
+  "chart_type": "pie",
+  "title": "User Persona Distribution",
+  "subtitle": "Based on 16,936 reviews (confidence >= 0.5)",
+  "data": [
+    {
+      "label": "Experience Focused",
+      "value": 6682,
+      "percentage": 39.5,
+      "avg_stars": 3.52,
+      "avg_sentiment": 0.92,
+      "sentiment_distribution": {
+        "negative": 2436,
+        "neutral": 2324,
+        "positive": 1922
+      },
+      "raw_persona": "experience_focused"
+    },
+    {
+      "label": "Families",
+      "value": 3055,
+      "percentage": 18.0,
+      "avg_stars": 4.69,
+      "avg_sentiment": 1.68,
+      "sentiment_distribution": {
+        "negative": 164,
+        "neutral": 638,
+        "positive": 2253
+      },
+      "raw_persona": "families"
+    },
+    {
+      "label": "International Tourists",
+      "value": 2552,
+      "percentage": 15.1,
+      "avg_stars": 4.8,
+      "avg_sentiment": 1.72,
+      "sentiment_distribution": {
+        "negative": 164,
+        "neutral": 397,
+        "positive": 1991
+      },
+      "raw_persona": "international_tourists"
+    },
+    {
+      "label": "Premium Visitors",
+      "value": 2104,
+      "percentage": 12.4,
+      "avg_stars": 4.55,
+      "avg_sentiment": 1.37,
+      "sentiment_distribution": {
+        "negative": 458,
+        "neutral": 406,
+        "positive": 1240
+      },
+      "raw_persona": "premium_visitors"
+    },
+    {
+      "label": "Thrill Seekers",
+      "value": 1692,
+      "percentage": 10.0,
+      "avg_stars": 4.76,
+      "avg_sentiment": 1.77,
+      "sentiment_distribution": {
+        "negative": 65,
+        "neutral": 252,
+        "positive": 1375
+      },
+      "raw_persona": "thrill_seekers"
+    },
+    {
+      "label": "Budget Conscious",
+      "value": 851,
+      "percentage": 5.0,
+      "avg_stars": 3.62,
+      "avg_sentiment": 0.81,
+      "sentiment_distribution": {
+        "negative": 343,
+        "neutral": 324,
+        "positive": 184
+      },
+      "raw_persona": "budget_conscious"
+    }
+  ]
+}
